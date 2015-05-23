@@ -1,7 +1,38 @@
 apply plugin: 'cpp'
 
 model {
+    repositories {
+        lib(PrebuiltLibraries) {
+            gtest {
+                binaries.withType(StaticLibraryBinary) {
+                    staticLibraryFile = file("/usr/lib/x86_64-linux-gnu/libgtest.a")
+                }
+            }
+            mtrace_gtest {
+                binaries.withType(StaticLibraryBinary) {
+                    staticLibraryFile = file("../mtrace_gtest/build/binaries/mtrace_gtestStaticLibrary/libmtrace_gtest.a")
+                }
+            }
+            mtrace_gtest_main {
+                binaries.withType(StaticLibraryBinary) {
+                    staticLibraryFile = file("../mtrace_gtest/build/binaries/mtrace_gtest_mainStaticLibrary/libmtrace_gtest_main.a")
+                }
+            }
+        }
+    }
+
     components {
         main(NativeLibrarySpec)
+        test(NativeExecutableSpec) {
+            binaries.all {
+                linker.args "-pthread"
+            }
+            sources.cpp {
+                lib library: 'main', linkage: 'api'
+                lib library: 'mtrace_gtest_main', linkage: 'static'
+                lib library: 'mtrace_gtest', linkage: 'static'
+                lib library: 'gtest', linkage: 'static'
+            }
+        }
     }
 }
