@@ -1,0 +1,8 @@
+#ifndef FAILURE_REPORTER_TEMPLATE_HPP
+#define FAILURE_REPORTER_TEMPLATE_HPP
+
+#define DECLARE_FAILURE_REPORTER_CLASS(className) \
+class className { \
+}
+
+#endif
