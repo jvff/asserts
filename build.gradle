@@ -22,7 +22,9 @@ model {
     }
 
     components {
-        main(NativeLibrarySpec)
+        main(NativeLibrarySpec) {
+            sources.cpp.exportedHeaders.srcDir "include/main/cpp"
+        }
         test(NativeExecutableSpec) {
             binaries.all {
                 linker.args "-pthread"
