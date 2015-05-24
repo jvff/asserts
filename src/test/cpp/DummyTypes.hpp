@@ -3,7 +3,7 @@
 
 template <int discriminator>
 struct DummyTypes {
-    int value;
+    int value = 0;
 };
 
 template <int discriminator>
