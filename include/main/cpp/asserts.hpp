@@ -6,6 +6,9 @@ class AssertThat {
 public:
     explicit AssertThat(const T& reference) {
     }
+
+    AssertThat(AssertThat<T>&) = delete;
+    AssertThat(AssertThat<T>&&) = delete;
 };
 
 #endif
