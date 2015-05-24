@@ -3,6 +3,9 @@
 
 template<typename T>
 class AssertThat {
+public:
+    explicit AssertThat(const T& reference) {
+    }
 };
 
 #endif
