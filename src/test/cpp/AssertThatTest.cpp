@@ -24,6 +24,13 @@ TEST(AssertThatTest, hasNoOtherConstructor) {
     EXPECT_FALSE((std::is_move_constructible<type>::value));
 }
 
+TEST(AssertThatTest, subjectIsProperlySet) {
+    const DummyType subject;
+    AssertThat<DummyType> assertion(subject);
+
+    EXPECT_EQ(&subject, &assertion.subject);
+}
+
 TEST(AssertThatTest, auxiliaryFunctionExists) {
     const DummyType parameter;
     const DummyType& parameterReference = parameter;
