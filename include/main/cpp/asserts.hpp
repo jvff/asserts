@@ -4,7 +4,10 @@
 template<typename T>
 class AssertThat {
 public:
-    explicit AssertThat(const T& reference) {
+    const T& subject;
+
+public:
+    explicit AssertThat(const T& reference) : subject(reference) {
     }
 
     AssertThat(AssertThat<T>&) = delete;
