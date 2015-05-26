@@ -40,3 +40,10 @@ TEST(AssertThatTest, auxiliaryFunctionExists) {
 
     EXPECT_TRUE((std::is_same<type, returnType>::value));
 }
+
+TEST(AssertThatTest, subjectIsProperlySetByHelperFunction) {
+    const DummyType subject;
+    const auto& assertion = assertThat(subject);
+
+    EXPECT_EQ(&subject, &assertion.subject);
+}
