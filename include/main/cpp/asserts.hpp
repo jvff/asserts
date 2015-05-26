@@ -7,7 +7,7 @@ public:
     const T& subject;
 
 public:
-    explicit AssertThat(const T& reference) : subject(reference) {
+    AssertThat(const T& reference) : subject(reference) {
     }
 
     AssertThat(AssertThat<T>&) = delete;
@@ -16,9 +16,7 @@ public:
 
 template<typename T>
 AssertThat<T> assertThat(const T& reference) {
-    T subject;
-
-    return {subject};
+    return {reference};
 }
 
 #endif
