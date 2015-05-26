@@ -11,4 +11,11 @@ public:
     AssertThat(AssertThat<T>&&) = delete;
 };
 
+template<typename T>
+AssertThat<T> assertThat(const T& reference) {
+    T subject;
+
+    return {subject};
+}
+
 #endif
