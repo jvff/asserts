@@ -23,3 +23,13 @@ TEST(AssertThatTest, hasNoOtherConstructor) {
     EXPECT_FALSE((std::is_copy_constructible<type>::value));
     EXPECT_FALSE((std::is_move_constructible<type>::value));
 }
+
+TEST(AssertThatTest, auxiliaryFunctionExists) {
+    const DummyType parameter;
+    const DummyType& parameterReference = parameter;
+
+    typedef AssertThat<DummyType> type;
+    typedef decltype(assertThat(parameterReference)) returnType;
+
+    EXPECT_TRUE((std::is_same<type, returnType>::value));
+}
