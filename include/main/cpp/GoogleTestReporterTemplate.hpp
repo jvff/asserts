@@ -1,11 +1,11 @@
-#ifndef FAILURE_REPORTER_TEMPLATE_HPP
-#define FAILURE_REPORTER_TEMPLATE_HPP
+#ifndef GOOGLE_TEST_REPORTER_TEMPLATE_HPP
+#define GOOGLE_TEST_REPORTER_TEMPLATE_HPP
 
 #include <string>
 
 #include "gtest/gtest.h"
 
-#define DECLARE_FAILURE_REPORTER_CLASS(className) \
+#define DECLARE_GOOGLE_TEST_REPORTER_CLASS(className) \
 class className { \
 public: \
     virtual void fail(std::string errorMessage) { \
