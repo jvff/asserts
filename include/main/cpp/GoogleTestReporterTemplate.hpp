@@ -15,6 +15,8 @@ public: \
     virtual void succeed() { \
         SUCCEED(); \
     } \
-}
+}; \
+\
+typedef className TestReporter
 
 #endif
