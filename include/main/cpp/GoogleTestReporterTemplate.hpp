@@ -11,6 +11,10 @@ public: \
     virtual void fail(std::string errorMessage) { \
         FAIL() << errorMessage; \
     } \
+\
+    virtual void succeed() { \
+        SUCCEED(); \
+    } \
 }
 
 #endif
