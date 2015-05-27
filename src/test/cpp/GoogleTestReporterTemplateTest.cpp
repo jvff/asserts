@@ -11,28 +11,28 @@ static std::stringstream* failStream;
 
 #define FAIL() *failStream << ""
 
-#include "FailureReporterTemplate.hpp"
+#include "GoogleTestReporterTemplate.hpp"
 
-DECLARE_FAILURE_REPORTER_CLASS(FakeFailureReporter);
+DECLARE_GOOGLE_TEST_REPORTER_CLASS(FakeGoogleTestReporter);
 
-TEST(FailureReporterTemplateTest, templateMakesAClass) {
-    FakeFailureReporter *reporter;
+TEST(GoogleTestReporterTemplateTest, templateMakesAClass) {
+    FakeGoogleTestReporter *reporter;
 
-    reporter = new FakeFailureReporter();
+    reporter = new FakeGoogleTestReporter();
 
     EXPECT_TRUE(reporter != NULL);
 
     delete reporter;
 }
 
-TEST(FailureReporterTemplateTest, failMethod) {
+TEST(GoogleTestReporterTemplateTest, failMethod) {
     std::string errorMessage = "Test error message";
-    FakeFailureReporter *reporter;
+    FakeGoogleTestReporter *reporter;
     std::stringstream stream;
 
     failStream = &stream;
 
-    reporter = new FakeFailureReporter();
+    reporter = new FakeGoogleTestReporter();
 
     reporter->fail(errorMessage);
 
