@@ -1,10 +1,14 @@
 #ifndef FAKE_TEST_REPORTER_HPP
 #define FAKE_TEST_REPORTER_HPP
 
+#include <functional>
+#include <string>
+
 class FakeTestReporter {
 public:
     static bool failed;
     static bool succeeded;
+    static std::reference_wrapper<const std::string> failureMessage;
 
 public:
     static void reset() {
@@ -16,8 +20,9 @@ public:
         succeeded = true;
     }
 
-    static void fail() {
+    static void fail(const std::string& message) {
         failed = true;
+        failureMessage = message;
     }
 };
 
