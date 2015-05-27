@@ -1,5 +1,6 @@
 #include <sstream>
 #include <string>
+#include <type_traits>
 
 #include "gtest/gtest.h"
 
@@ -60,4 +61,8 @@ TEST(GoogleTestReporterTemplateTest, succeedMethod) {
     EXPECT_TRUE(successFlag);
 
     delete reporter;
+}
+
+TEST(GoogleTestReporterTest, testReporterTypeAliasWasDefined) {
+    EXPECT_TRUE((std::is_same<FakeGoogleTestReporter, TestReporter>::value));
 }
