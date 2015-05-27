@@ -1,6 +1,8 @@
 #ifndef ASSERTS_HPP
 #define ASSERTS_HPP
 
+#include "TestReporter.hpp"
+
 template<typename T>
 class AssertThat {
 public:
@@ -12,6 +14,10 @@ public:
 
     AssertThat(AssertThat<T>&) = delete;
     AssertThat(AssertThat<T>&&) = delete;
+
+    void isNull() {
+        TestReporter::succeed();
+    }
 };
 
 template<typename T>
