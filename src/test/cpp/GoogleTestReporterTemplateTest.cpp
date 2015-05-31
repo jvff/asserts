@@ -28,23 +28,20 @@ TEST(GoogleTestReporterTemplateTest, templateMakesAClass) {
 }
 
 TEST(GoogleTestReporterTemplateTest, failMethod) {
-    FakeGoogleTestReporter reporter;
     std::string errorMessage = "Test error message";
     std::stringstream stream;
 
     failStream = &stream;
 
-    reporter.fail(errorMessage);
+    FakeGoogleTestReporter::fail(errorMessage);
 
     EXPECT_EQ(errorMessage, stream.str());
 }
 
 TEST(GoogleTestReporterTemplateTest, succeedMethod) {
-    FakeGoogleTestReporter reporter;
-
     successFlag = false;
 
-    reporter.succeed();
+    FakeGoogleTestReporter::succeed();
 
     EXPECT_TRUE(successFlag);
 }
