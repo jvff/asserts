@@ -24,13 +24,7 @@ static bool successFlag;
 DECLARE_GOOGLE_TEST_REPORTER_CLASS(FakeGoogleTestReporter);
 
 TEST(GoogleTestReporterTemplateTest, templateMakesAClass) {
-    FakeGoogleTestReporter *reporter;
-
-    reporter = new FakeGoogleTestReporter();
-
-    EXPECT_TRUE(reporter != NULL);
-
-    delete reporter;
+    EXPECT_TRUE((std::is_class<FakeGoogleTestReporter>::value));
 }
 
 TEST(GoogleTestReporterTemplateTest, failMethod) {
