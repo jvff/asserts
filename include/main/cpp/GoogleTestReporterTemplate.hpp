@@ -8,11 +8,11 @@
 #define DECLARE_GOOGLE_TEST_REPORTER_CLASS(className) \
 class className { \
 public: \
-    virtual void fail(std::string errorMessage) { \
+    static void fail(std::string errorMessage) { \
         FAIL() << errorMessage; \
     } \
 \
-    virtual void succeed() { \
+    static void succeed() { \
         SUCCEED(); \
     } \
 }; \
