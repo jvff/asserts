@@ -11,6 +11,11 @@ private:
     static const std::string pointerShouldBeNullMessage;
 
 public:
+    static void isClassOrStruct() {
+        TestReporter::succeed();
+    }
+
+public:
     const T& subject;
 
 public:
