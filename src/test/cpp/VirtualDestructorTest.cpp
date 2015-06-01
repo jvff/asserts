@@ -17,3 +17,9 @@ TEST_F(VirtualDestructorTest, succeedsForSubClass) {
 
     shouldSucceed();
 }
+
+TEST_F(VirtualDestructorTest, failsForSubClass) {
+    AssertThat<SubClassWithoutVirtualDestructor>::hasVirtualDestructor();
+
+    shouldFail("Class should have virtual destructor");
+}
