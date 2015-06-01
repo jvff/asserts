@@ -26,6 +26,10 @@ class SubClassWithoutVirtualDestructor :
         public SuperClassWithoutVirtualDestructor {
 };
 
+class SubClassWithNonVirtualDestructor :
+        public SuperClassWithNonVirtualDestructor {
+};
+
 class SubClassWithMultipleInheritance : public SubClassWithVirtualDestructor,
         public SubClassWithoutVirtualDestructor {
     ~SubClassWithMultipleInheritance() = 0;
