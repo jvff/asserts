@@ -9,10 +9,14 @@ template<typename T>
 class AssertThat {
 private:
     static const std::string pointerShouldBeNullMessage;
+    static const std::string typeShouldBeClassOrStructMessage;
 
 public:
     static void isClassOrStruct() {
-        TestReporter::succeed();
+        if (std::is_class<T>::value == true)
+            TestReporter::succeed();
+        else
+            TestReporter::fail(typeShouldBeClassOrStructMessage);
     }
 
 public:
@@ -35,6 +39,9 @@ public:
 
 template <typename T>
 const std::string AssertThat<T>::pointerShouldBeNullMessage = "Pointer should be NULL";
+template <typename T>
+const std::string AssertThat<T>::typeShouldBeClassOrStructMessage =
+        "Type should be a class or a struct";
 
 template<typename T>
 AssertThat<T> assertThat(const T& reference) {
