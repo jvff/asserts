@@ -19,6 +19,10 @@ public:
             TestReporter::fail(typeShouldBeClassOrStructMessage);
     }
 
+    static void hasVirtualDestructor() {
+        TestReporter::succeed();
+    }
+
 public:
     const T& subject;
 
