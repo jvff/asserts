@@ -14,17 +14,20 @@ private:
 
 public:
     static void isClassOrStruct() {
-        if (std::is_class<T>::value == true)
-            TestReporter::succeed();
-        else
-            TestReporter::fail(typeShouldBeClassOrStructMessage);
+        test(std::is_class<T>::value, typeShouldBeClassOrStructMessage);
     }
 
     static void hasVirtualDestructor() {
-        if (std::has_virtual_destructor<T>::value == true)
+        test(std::has_virtual_destructor<T>::value,
+                classShouldHaveVirtualDestructorMessage);
+    }
+
+private:
+    static void test(bool result, const std::string& failureMessage) {
+        if (result == true)
             TestReporter::succeed();
         else
-            TestReporter::fail(classShouldHaveVirtualDestructorMessage);
+            TestReporter::fail(failureMessage);
     }
 
 public:
@@ -38,10 +41,7 @@ public:
     AssertThat(AssertThat<T>&&) = delete;
 
     void isNull() {
-        if (subject == NULL)
-            TestReporter::succeed();
-        else
-            TestReporter::fail(pointerShouldBeNullMessage);
+        test(subject == NULL, pointerShouldBeNullMessage);
     }
 };
 
