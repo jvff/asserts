@@ -11,19 +11,9 @@ public:
     static std::reference_wrapper<const std::string> failureMessage;
 
 public:
-    static void reset() {
-        succeeded = false;
-        failed = false;
-    }
-
-    static void succeed() {
-        succeeded = true;
-    }
-
-    static void fail(const std::string& message) {
-        failed = true;
-        failureMessage = message;
-    }
+    static void reset();
+    static void succeed();
+    static void fail(const std::string& message);
 };
 
 #define TEST_REPORTER FakeTestReporter
