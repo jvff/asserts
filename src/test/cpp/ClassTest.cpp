@@ -8,6 +8,9 @@
 class DummyClass {
 };
 
+union DummyUnion {
+};
+
 TEST(ClassTest, isClassOrStructSucceedsWithClass) {
     FakeTestReporter::reset();
 
@@ -22,4 +25,14 @@ TEST(ClassTest, isClassOrStructSucceedsWithStruct) {
     AssertThat<DummyType>::isClassOrStruct();
 
     EXPECT_TRUE(FakeTestReporter::succeeded);
+}
+
+TEST(ClassTest, isClassOrStructFailsWithUnion) {
+    FakeTestReporter::reset();
+
+    AssertThat<DummyUnion>::isClassOrStruct();
+
+    EXPECT_TRUE(FakeTestReporter::failed);
+    EXPECT_EQ("Type should be a class or a struct",
+            FakeTestReporter::failureMessage.get());
 }
