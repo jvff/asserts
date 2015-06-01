@@ -8,6 +8,7 @@
 template<typename T>
 class AssertThat {
 private:
+    static const std::string classShouldHaveVirtualDestructorMessage;
     static const std::string pointerShouldBeNullMessage;
     static const std::string typeShouldBeClassOrStructMessage;
 
@@ -20,7 +21,10 @@ public:
     }
 
     static void hasVirtualDestructor() {
-        TestReporter::succeed();
+        if (std::has_virtual_destructor<T>::value == true)
+            TestReporter::succeed();
+        else
+            TestReporter::fail(classShouldHaveVirtualDestructorMessage);
     }
 
 public:
