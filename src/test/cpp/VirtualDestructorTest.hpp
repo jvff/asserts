@@ -13,6 +13,11 @@ class SuperClassWithVirtualDestructor {
 class SuperClassWithoutVirtualDestructor {
 };
 
+class SuperClassWithNonVirtualDestructor {
+    ~SuperClassWithNonVirtualDestructor() {
+    }
+};
+
 class SubClassWithVirtualDestructor : public SuperClassWithVirtualDestructor {
     ~SubClassWithVirtualDestructor() = 0;
 };
