@@ -1,27 +1,18 @@
-#include "gtest/gtest.h"
+#include "NullTest.hpp"
 
-#include "FakeTestReporter.hpp"
-
-#include "asserts.hpp"
-
-TEST(NullTest, succeed) {
+TEST_F(NullTest, succeed) {
     const void* pointer = NULL;
-
-    FakeTestReporter::reset();
 
     assertThat(pointer).isNull();
 
-    EXPECT_TRUE(FakeTestReporter::succeeded);
+    shouldSucceed();
 }
 
-TEST(NullTest, fail) {
+TEST_F(NullTest, fail) {
     const int dummyVariable = 0;
     const void* pointer = (const void*)&dummyVariable;
 
-    FakeTestReporter::reset();
-
     assertThat(pointer).isNull();
 
-    EXPECT_TRUE(FakeTestReporter::failed);
-    EXPECT_EQ("Pointer should be NULL", FakeTestReporter::failureMessage.get());
+    shouldFail("Pointer should be NULL");
 }
