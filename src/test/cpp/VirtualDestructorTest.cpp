@@ -5,3 +5,9 @@ TEST_F(VirtualDestructorTest, succeedsForSuperClass) {
 
     shouldSucceed();
 }
+
+TEST_F(VirtualDestructorTest, failsForSuperClass) {
+    AssertThat<SuperClassWithoutVirtualDestructor>::hasVirtualDestructor();
+
+    shouldFail("Class should have virtual destructor");
+}

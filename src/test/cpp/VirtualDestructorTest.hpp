@@ -10,4 +10,7 @@ class SuperClassWithVirtualDestructor {
     virtual ~SuperClassWithVirtualDestructor() = 0;
 };
 
+class SuperClassWithoutVirtualDestructor {
+};
+
 #endif
