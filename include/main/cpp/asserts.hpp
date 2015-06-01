@@ -37,11 +37,7 @@ public:
     }
 };
 
-template <typename T>
-const std::string AssertThat<T>::pointerShouldBeNullMessage = "Pointer should be NULL";
-template <typename T>
-const std::string AssertThat<T>::typeShouldBeClassOrStructMessage =
-        "Type should be a class or a struct";
+#include "failure_messages.hpp"
 
 template<typename T>
 AssertThat<T> assertThat(const T& reference) {
