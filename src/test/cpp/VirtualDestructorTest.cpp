@@ -23,3 +23,9 @@ TEST_F(VirtualDestructorTest, failsForSubClass) {
 
     shouldFail("Class should have virtual destructor");
 }
+
+TEST_F(VirtualDestructorTest, succeedsForSubClassWithMultipleInheritance) {
+    AssertThat<SubClassWithMultipleInheritance>::hasVirtualDestructor();
+
+    shouldSucceed();
+}
