@@ -13,4 +13,8 @@ class SuperClassWithVirtualDestructor {
 class SuperClassWithoutVirtualDestructor {
 };
 
+class SubClassWithVirtualDestructor : public SuperClassWithVirtualDestructor {
+    ~SubClassWithVirtualDestructor() = 0;
+};
+
 #endif
