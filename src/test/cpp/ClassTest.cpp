@@ -1,19 +1,19 @@
 #include "ClassTest.hpp"
 
-TEST_F(ClassTest, isClassOrStructSucceedsWithClass) {
-    AssertThat<DummyClass>::isClassOrStruct();
+typedef testing::Types<
+    DummyClass,
+    DummyType,
+    DummyUnion
+> Types;
 
-    shouldSucceed();
-}
+TYPED_TEST_CASE(ClassTest, Types);
 
-TEST_F(ClassTest, isClassOrStructSucceedsWithStruct) {
-    AssertThat<DummyType>::isClassOrStruct();
+SHOULD_SUCCEED(DummyClass);
+SHOULD_SUCCEED(DummyType);
+SHOULD_FAIL(DummyUnion);
 
-    shouldSucceed();
-}
+TYPED_TEST(ClassTest, isClassOrStructTest) {
+    AssertThat<TypeParam>::isClassOrStruct();
 
-TEST_F(ClassTest, isClassOrStructFailsWithUnion) {
-    AssertThat<DummyUnion>::isClassOrStruct();
-
-    shouldFail("Type should be a class or a struct");
+    this->checkResult("Type should be a class or a struct");
 }
