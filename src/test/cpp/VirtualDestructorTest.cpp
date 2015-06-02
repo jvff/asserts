@@ -23,8 +23,5 @@ SHOULD_FAIL(SubClassWithNonVirtualDestructor);
 TYPED_TEST(VirtualDestructorTest, test) {
     AssertThat<TypeParam>::hasVirtualDestructor();
 
-    if (Should<TypeParam>::succeed)
-        this->shouldSucceed();
-    else
-        this->shouldFail("Class should have virtual destructor");
+    this->checkResult("Class should have virtual destructor");
 }
