@@ -1,43 +1,30 @@
 #include "VirtualDestructorTest.hpp"
 
-TEST_F(VirtualDestructorTest, succeedsForSuperClass) {
-    AssertThat<SuperClassWithVirtualDestructor>::hasVirtualDestructor();
+typedef testing::Types<
+    SuperClassWithVirtualDestructor,
+    SuperClassWithoutVirtualDestructor,
+    SuperClassWithNonVirtualDestructor,
+    SubClassWithVirtualDestructor,
+    SubClassWithoutVirtualDestructor,
+    SubClassWithNonVirtualDestructor,
+    SubClassWithMultipleInheritance
+> Types;
 
-    shouldSucceed();
-}
+TYPED_TEST_CASE(VirtualDestructorTest, Types);
 
-TEST_F(VirtualDestructorTest, failsForSuperClass) {
-    AssertThat<SuperClassWithoutVirtualDestructor>::hasVirtualDestructor();
+SHOULD_SUCCEED(SuperClassWithVirtualDestructor);
+SHOULD_SUCCEED(SubClassWithVirtualDestructor);
+SHOULD_SUCCEED(SubClassWithMultipleInheritance);
+SHOULD_FAIL(SuperClassWithoutVirtualDestructor);
+SHOULD_FAIL(SuperClassWithNonVirtualDestructor);
+SHOULD_FAIL(SubClassWithoutVirtualDestructor);
+SHOULD_FAIL(SubClassWithNonVirtualDestructor);
 
-    shouldFail("Class should have virtual destructor");
-}
+TYPED_TEST(VirtualDestructorTest, test) {
+    AssertThat<TypeParam>::hasVirtualDestructor();
 
-TEST_F(VirtualDestructorTest, failsForSuperClassWithNonVirtualDestructor) {
-    AssertThat<SuperClassWithNonVirtualDestructor>::hasVirtualDestructor();
-
-    shouldFail("Class should have virtual destructor");
-}
-
-TEST_F(VirtualDestructorTest, succeedsForSubClass) {
-    AssertThat<SubClassWithVirtualDestructor>::hasVirtualDestructor();
-
-    shouldSucceed();
-}
-
-TEST_F(VirtualDestructorTest, failsForSubClass) {
-    AssertThat<SubClassWithoutVirtualDestructor>::hasVirtualDestructor();
-
-    shouldFail("Class should have virtual destructor");
-}
-
-TEST_F(VirtualDestructorTest, failsForSubClassWithNonVirtualDestructor) {
-    AssertThat<SubClassWithNonVirtualDestructor>::hasVirtualDestructor();
-
-    shouldFail("Class should have virtual destructor");
-}
-
-TEST_F(VirtualDestructorTest, succeedsForSubClassWithMultipleInheritance) {
-    AssertThat<SubClassWithMultipleInheritance>::hasVirtualDestructor();
-
-    shouldSucceed();
+    if (Should<TypeParam>::succeed)
+        this->shouldSucceed();
+    else
+        this->shouldFail("Class should have virtual destructor");
 }

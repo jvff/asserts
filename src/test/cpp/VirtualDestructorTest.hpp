@@ -3,8 +3,23 @@
 
 #include "AbstractAssertionTest.hpp"
 
+template <typename T>
 class VirtualDestructorTest : public AbstractAssertionTest {
 };
+
+template <typename T>
+class Should {
+public:
+    static const bool succeed;
+};
+
+#define SHOULD_SUCCEED(type) \
+template <> \
+const bool Should<type>::succeed = true
+
+#define SHOULD_FAIL(type) \
+template <> \
+const bool Should<type>::succeed = false
 
 class SuperClassWithVirtualDestructor {
     virtual ~SuperClassWithVirtualDestructor() = 0;
