@@ -4,8 +4,8 @@
 #include "AbstractTypeAssertionTest.hpp"
 #include "DummyTypes.hpp"
 
-template <typename T>
-class ClassTest : public AbstractTypeAssertionTest<T> {
+template <typename T, bool shouldSucceed>
+class ClassTest : public AbstractTypeAssertionTest<T, shouldSucceed> {
 };
 
 class DummyClass {

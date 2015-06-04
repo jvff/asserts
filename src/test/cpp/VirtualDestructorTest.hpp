@@ -3,8 +3,9 @@
 
 #include "AbstractTypeAssertionTest.hpp"
 
-template <typename T>
-class VirtualDestructorTest : public AbstractTypeAssertionTest<T> {
+template <typename T, bool shouldSucceed>
+class VirtualDestructorTest :
+        public AbstractTypeAssertionTest<T, shouldSucceed> {
 };
 
 class SuperClassWithVirtualDestructor {

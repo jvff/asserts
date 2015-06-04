@@ -1,27 +1,17 @@
 #include "VirtualDestructorTest.hpp"
 
-typedef testing::Types<
-    SuperClassWithVirtualDestructor,
-    SuperClassWithoutVirtualDestructor,
-    SuperClassWithNonVirtualDestructor,
-    SubClassWithVirtualDestructor,
-    SubClassWithoutVirtualDestructor,
-    SubClassWithNonVirtualDestructor,
-    SubClassWithMultipleInheritance
-> Types;
-
-TYPED_TEST_CASE(VirtualDestructorTest, Types);
-
-SHOULD_SUCCEED(SuperClassWithVirtualDestructor);
-SHOULD_SUCCEED(SubClassWithVirtualDestructor);
-SHOULD_SUCCEED(SubClassWithMultipleInheritance);
-SHOULD_FAIL(SuperClassWithoutVirtualDestructor);
-SHOULD_FAIL(SuperClassWithNonVirtualDestructor);
-SHOULD_FAIL(SubClassWithoutVirtualDestructor);
-SHOULD_FAIL(SubClassWithNonVirtualDestructor);
-
-TYPED_TEST(VirtualDestructorTest, test) {
+TYPE_ASSERTION_TEST(VirtualDestructorTest) {
     AssertThat<TypeParam>::hasVirtualDestructor();
 
     this->checkResult("Class should have virtual destructor");
 }
+
+SHOULD_SUCCEED(VirtualDestructorTest,
+    SuperClassWithVirtualDestructor,
+    SubClassWithVirtualDestructor,
+    SubClassWithMultipleInheritance);
+SHOULD_FAIL(VirtualDestructorTest,
+    SuperClassWithoutVirtualDestructor,
+    SuperClassWithNonVirtualDestructor,
+    SubClassWithoutVirtualDestructor,
+    SubClassWithNonVirtualDestructor);
