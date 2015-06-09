@@ -13,7 +13,6 @@ public: \
     } \
 \
     static void succeed() { \
-        SUCCEED(); \
     } \
 }; \
 \
