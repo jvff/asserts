@@ -25,3 +25,11 @@ TEST_F(NullTest, isNotNullSucceeds) {
 
     shouldSucceed();
 }
+
+TEST_F(NullTest, isNotNullFails) {
+    const void* pointer = NULL;
+
+    assertThat(pointer).isNotNull();
+
+    shouldFail("Pointer should not be NULL");
+}
