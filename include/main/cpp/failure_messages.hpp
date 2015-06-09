@@ -7,6 +7,7 @@ const std::string AssertThat<T>::name ## Message = message
 
 MSG(classShouldHaveVirtualDestructor, "Class should have virtual destructor");
 MSG(pointerShouldBeNull, "Pointer should be NULL");
+MSG(pointerShouldntBeNull, "Pointer should not be NULL");
 MSG(typeShouldBeClassOrStruct, "Type should be a class or a struct");
 
 #endif

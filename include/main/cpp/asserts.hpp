@@ -10,6 +10,7 @@ class AssertThat {
 private:
     static const std::string classShouldHaveVirtualDestructorMessage;
     static const std::string pointerShouldBeNullMessage;
+    static const std::string pointerShouldntBeNullMessage;
     static const std::string typeShouldBeClassOrStructMessage;
 
 public:
@@ -45,7 +46,7 @@ public:
     }
 
     void isNotNull() {
-	test(true, "");
+	test(subject != NULL, pointerShouldntBeNullMessage);
     }
 };
 
