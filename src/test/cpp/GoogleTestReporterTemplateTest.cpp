@@ -5,19 +5,12 @@
 #include "gtest/gtest.h"
 
 static std::stringstream* failStream;
-static bool successFlag;
 
 #ifdef FAIL
 #undef FAIL
 #endif
 
 #define FAIL() *failStream << ""
-
-#ifdef SUCCEED
-#undef SUCCEED
-#endif
-
-#define SUCCEED() successFlag = true
 
 #include "GoogleTestReporterTemplate.hpp"
 
@@ -39,11 +32,13 @@ TEST(GoogleTestReporterTemplateTest, failMethod) {
 }
 
 TEST(GoogleTestReporterTemplateTest, succeedMethod) {
-    successFlag = false;
+    std::stringstream stream;
+
+    failStream = &stream;
 
     FakeGoogleTestReporter::succeed();
 
-    EXPECT_TRUE(successFlag);
+    EXPECT_EQ("", stream.str());
 }
 
 TEST(GoogleTestReporterTest, testReporterTypeAliasWasDefined) {
