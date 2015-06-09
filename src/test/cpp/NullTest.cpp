@@ -1,35 +1,23 @@
 #include "NullTest.hpp"
 
-TEST_F(NullTest, isNullSucceeds) {
-    const void* pointer = NULL;
+static const int dummyVariable = 0;
+static const void* dummyPointer = &dummyVariable;
+static const void* nullPointer = NULL;
 
-    assertThat(pointer).isNull();
+VALUE_ASSERTION_TEST(NullTest, isNull) {
+    assertThat(parameter).isNull();
 
-    shouldSucceed();
+    checkResult("Pointer should be NULL");
 }
 
-TEST_F(NullTest, isNullFails) {
-    const int dummyVariable = 0;
-    const void* pointer = (const void*)&dummyVariable;
+VALUES_SHOULD_SUCCEED(NullTest, isNull, nullPointer);
+VALUES_SHOULD_FAIL(NullTest, isNull, dummyPointer);
 
-    assertThat(pointer).isNull();
+VALUE_ASSERTION_TEST(NullTest, isNotNull) {
+    assertThat(parameter).isNotNull();
 
-    shouldFail("Pointer should be NULL");
+    checkResult("Pointer should not be NULL");
 }
 
-TEST_F(NullTest, isNotNullSucceeds) {
-    const int dummyVariable = 0;
-    const void* pointer = (const void*)&dummyVariable;
-
-    assertThat(pointer).isNotNull();
-
-    shouldSucceed();
-}
-
-TEST_F(NullTest, isNotNullFails) {
-    const void* pointer = NULL;
-
-    assertThat(pointer).isNotNull();
-
-    shouldFail("Pointer should not be NULL");
-}
+VALUES_SHOULD_SUCCEED(NullTest, isNotNull, dummyPointer);
+VALUES_SHOULD_FAIL(NullTest, isNotNull, nullPointer);
