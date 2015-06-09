@@ -20,8 +20,7 @@
 
 #define MAKE_TYPE_ASSERTION_TEST_PARENT_CLASS(TestCase, AbstractParent) \
 template <typename gtest_TypeParam_, bool shouldSucceed> \
-class AbstractParent : \
-    public TestCase<gtest_TypeParam_, shouldSucceed> { \
+class AbstractParent : public TestCase<gtest_TypeParam_, shouldSucceed> { \
 private: \
     typedef gtest_TypeParam_ TypeParam; \
     typedef TestCase<TypeParam, shouldSucceed> TestFixture; \
