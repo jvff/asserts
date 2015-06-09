@@ -43,6 +43,10 @@ public:
     void isNull() {
         test(subject == NULL, pointerShouldBeNullMessage);
     }
+
+    void isNotNull() {
+	test(true, "");
+    }
 };
 
 #include "failure_messages.hpp"
