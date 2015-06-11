@@ -1,13 +1,6 @@
 #ifndef VIRTUAL_DESTRUCTOR_TEST_HPP
 #define VIRTUAL_DESTRUCTOR_TEST_HPP
 
-#include "AbstractTypeAssertionTest.hpp"
-
-template <typename T, bool shouldSucceed>
-class VirtualDestructorTest :
-        public AbstractTypeAssertionTest<T, shouldSucceed> {
-};
-
 class SuperClassWithVirtualDestructor {
     virtual ~SuperClassWithVirtualDestructor() = 0;
 };

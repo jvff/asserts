@@ -1,4 +1,5 @@
 #include "ClassTest.hpp"
+#include "TypeAssertionMacros.hpp"
 
 TYPE_ASSERTION_TEST(ClassTest) {
     AssertThat<TypeParam>::isClassOrStruct();

@@ -3,12 +3,22 @@
 
 #include "gtest/gtest.h"
 
+#include "AbstractTypeAssertionTest.hpp"
 #include "TypeAssertionTestRegistration.hpp"
 
 #define BOOL_VALUE_OF_succeeds true
 #define BOOL_VALUE_OF_fails false
 
+#define TYPE_ASSERTION_TEST_CASE(TestCase) \
+template <typename T, bool shouldSucceed> \
+class TestCase : public AbstractTypeAssertionTest<T, shouldSucceed> { \
+}
+
 #define TYPE_ASSERTION_TEST(TestCase) \
+    TYPE_ASSERTION_TEST_CASE(TestCase); \
+    TYPE_ASSERTION_TEST_F(TestCase)
+
+#define TYPE_ASSERTION_TEST_F(TestCase) \
     MAKE_TYPE_ASSERTION_TEST(TestCase, \
             GTEST_TEST_CLASS_NAME_(TestCase, abstractParent))
 

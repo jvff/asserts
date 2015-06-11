@@ -1,3 +1,4 @@
+#include "TypeAssertionMacros.hpp"
 #include "VirtualDestructorTest.hpp"
 
 TYPE_ASSERTION_TEST(VirtualDestructorTest) {
