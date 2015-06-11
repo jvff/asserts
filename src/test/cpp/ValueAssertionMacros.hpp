@@ -3,10 +3,17 @@
 
 #include "gtest/gtest.h"
 
+#include "AbstractValueAssertionTest.hpp"
 #include "ValueAssertionTestRegistration.hpp"
 
 #define BOOL_VALUE_OF_succeeds true
 #define BOOL_VALUE_OF_fails false
+
+#define VALUE_ASSERTION_TEST_CASE(TestCase, ParameterType) \
+template <bool shouldSucceed> \
+class TestCase : \
+    public AbstractValueAssertionTest<ParameterType, shouldSucceed> { \
+}
 
 #define VALUE_ASSERTION_TEST(TestCase, TestName) \
    MAKE_VALUE_ASSERTION_TEST_WITH_PARENT(TestCase, TestName, \
