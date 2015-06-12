@@ -3,11 +3,12 @@
 
 #define MSG(name, message) \
 template <typename T> \
-const std::string AssertThat<T>::name ## Message = message
+const std::string AssertThat<T>::name ## FailureMessage = message
 
-MSG(classShouldHaveVirtualDestructor, "Class should have virtual destructor");
-MSG(pointerShouldBeNull, "Pointer should be NULL");
-MSG(pointerShouldntBeNull, "Pointer should not be NULL");
-MSG(typeShouldBeClassOrStruct, "Type should be a class or a struct");
+MSG(hasVirtualDestructor, "Class should have virtual destructor");
+MSG(isClassOrStruct, "Type should be a class or a struct");
+
+MSG(isNotNull, "Pointer should not be NULL");
+MSG(isNull, "Pointer should be NULL");
 
 #endif

@@ -5,13 +5,17 @@
 
 #include "TestReporter.hpp"
 
-#define ASSERTION(methodName, testCondition, failureMessageName) \
+#define ASSERTION(methodName, testCondition) \
+    ASSERTION_WITH_MESSAGE(methodName, testCondition, \
+            methodName##FailureMessage)
+
+#define ASSERTION_WITH_MESSAGE(methodName, testCondition, failureMessageName) \
     void methodName() { \
-        test(testCondition, failureMessageName##Message); \
+        test(testCondition, failureMessageName); \
     } \
 \
 private: \
-    static const std::string failureMessageName##Message; \
+    static const std::string failureMessageName; \
 \
 public:
 
@@ -19,10 +23,8 @@ template<typename T>
 class AssertThat {
 public:
     static ASSERTION(hasVirtualDestructor,
-            std::has_virtual_destructor<T>::value,
-            classShouldHaveVirtualDestructor)
-    static ASSERTION(isClassOrStruct, std::is_class<T>::value,
-            typeShouldBeClassOrStruct)
+            std::has_virtual_destructor<T>::value)
+    static ASSERTION(isClassOrStruct, std::is_class<T>::value)
 
 public:
     const T& subject;
@@ -34,8 +36,8 @@ public:
     AssertThat(AssertThat<T>&) = delete;
     AssertThat(AssertThat<T>&&) = delete;
 
-    ASSERTION(isNull, subject == NULL, pointerShouldBeNull)
-    ASSERTION(isNotNull, subject != NULL, pointerShouldntBeNull)
+    ASSERTION(isNull, subject == NULL)
+    ASSERTION(isNotNull, subject != NULL)
 
 private:
     static void test(bool result, const std::string& failureMessage) {
