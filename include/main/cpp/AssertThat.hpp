@@ -36,8 +36,8 @@ public:
     AssertThat(AssertThat<T>&) = delete;
     AssertThat(AssertThat<T>&&) = delete;
 
-    ASSERTION(isNull, subject == NULL)
     ASSERTION(isNotNull, subject != NULL)
+    ASSERTION(isNull, subject == NULL)
 
 private:
     static void test(bool result, const std::string& failureMessage) {
