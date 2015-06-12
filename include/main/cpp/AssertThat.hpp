@@ -5,31 +5,24 @@
 
 #include "TestReporter.hpp"
 
+#define ASSERTION(methodName, testCondition, failureMessageName) \
+    void methodName() { \
+        test(testCondition, failureMessageName##Message); \
+    } \
+\
+private: \
+    static const std::string failureMessageName##Message; \
+\
+public:
+
 template<typename T>
 class AssertThat {
-private:
-    static const std::string classShouldHaveVirtualDestructorMessage;
-    static const std::string pointerShouldBeNullMessage;
-    static const std::string pointerShouldntBeNullMessage;
-    static const std::string typeShouldBeClassOrStructMessage;
-
 public:
-    static void isClassOrStruct() {
-        test(std::is_class<T>::value, typeShouldBeClassOrStructMessage);
-    }
-
-    static void hasVirtualDestructor() {
-        test(std::has_virtual_destructor<T>::value,
-                classShouldHaveVirtualDestructorMessage);
-    }
-
-private:
-    static void test(bool result, const std::string& failureMessage) {
-        if (result == true)
-            TestReporter::succeed();
-        else
-            TestReporter::fail(failureMessage);
-    }
+    static ASSERTION(hasVirtualDestructor,
+            std::has_virtual_destructor<T>::value,
+            classShouldHaveVirtualDestructor)
+    static ASSERTION(isClassOrStruct, std::is_class<T>::value,
+            typeShouldBeClassOrStruct)
 
 public:
     const T& subject;
@@ -41,12 +34,15 @@ public:
     AssertThat(AssertThat<T>&) = delete;
     AssertThat(AssertThat<T>&&) = delete;
 
-    void isNull() {
-        test(subject == NULL, pointerShouldBeNullMessage);
-    }
+    ASSERTION(isNull, subject == NULL, pointerShouldBeNull)
+    ASSERTION(isNotNull, subject != NULL, pointerShouldntBeNull)
 
-    void isNotNull() {
-	test(subject != NULL, pointerShouldntBeNullMessage);
+private:
+    static void test(bool result, const std::string& failureMessage) {
+        if (result == true)
+            TestReporter::succeed();
+        else
+            TestReporter::fail(failureMessage);
     }
 };
 
