@@ -14,12 +14,15 @@ TEST(TypeOfTest, classTemplateExists) {
     EXPECT_TRUE((std::is_class<TypeOf<DummyType> >::value));
 }
 
-TEST(TypeOfTest, outputStreamOperatorForInt) {
-    std::stringstream stream;
-
-    stream << TypeOf<int>();
-
-    EXPECT_EQ("int", stream.str());
+#define TEST_TYPE_OF(TypeName, Type) \
+TEST(TypeOfTest, outputStreamOperatorFor##TypeName) { \
+    std::stringstream stream; \
+\
+    stream << TypeOf<Type>(); \
+\
+    EXPECT_EQ(#Type, stream.str()); \
 }
+
+TEST_TYPE_OF(Int, int)
 
 #endif
