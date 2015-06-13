@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include "Of.hpp"
 #include "TestReporter.hpp"
 
 #define ASSERTION(methodName, testCondition) \
@@ -25,6 +26,11 @@ public:
     static ASSERTION(hasVirtualDestructor,
             std::has_virtual_destructor<T>::value)
     static ASSERTION(isClassOrStruct, std::is_class<T>::value)
+
+    template <class T2>
+    static void isSubClass(const Of<T2>&) {
+        test(std::is_base_of<T2, T>::value, "");
+    }
 
 public:
     const T& subject;
