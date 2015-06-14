@@ -38,4 +38,6 @@ TEST_TYPE_OF(Float, float)
 TEST_TYPE_OF(Double, double)
 TEST_TYPE_OF(LongDouble, long double)
 
+TEST_TYPE_OF(DummyType, DummyTypes<0>)
+
 #endif
