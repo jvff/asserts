@@ -1,16 +1,13 @@
 #include "FakeTestReporter.hpp"
 
-static const std::string emptyMessage = "";
-
 bool FakeTestReporter::failed = false;
 bool FakeTestReporter::succeeded = false;
-std::reference_wrapper<const std::string> FakeTestReporter::failureMessage
-        = emptyMessage;
+std::unique_ptr<const std::string> FakeTestReporter::failureMessage{nullptr};
 
 void FakeTestReporter::reset() {
     succeeded = false;
     failed = false;
-    failureMessage = emptyMessage;
+    failureMessage.reset();
 }
 
 void FakeTestReporter::succeed() {
@@ -19,5 +16,5 @@ void FakeTestReporter::succeed() {
 
 void FakeTestReporter::fail(const std::string& message) {
     failed = true;
-    failureMessage = message;
+    failureMessage.reset(new std::string(message));
 }

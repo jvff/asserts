@@ -1,14 +1,14 @@
 #ifndef FAKE_TEST_REPORTER_HPP
 #define FAKE_TEST_REPORTER_HPP
 
-#include <functional>
+#include <memory>
 #include <string>
 
 class FakeTestReporter {
 public:
     static bool failed;
     static bool succeeded;
-    static std::reference_wrapper<const std::string> failureMessage;
+    static std::unique_ptr<const std::string> failureMessage;
 
 public:
     static void reset();
