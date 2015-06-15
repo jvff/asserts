@@ -6,13 +6,16 @@
 template <bool shouldSucceed>
 class AbstractSimpleAssertionTest : public AbstractAssertionTest {
 public:
-    void checkResult(const std::string& failureMessage);
+    template <typename... ParameterTypes>
+    void checkResult(const std::string& failureMessage,
+            ParameterTypes... messageParameters);
 };
 
 template <>
 class AbstractSimpleAssertionTest<true> : public AbstractAssertionTest {
 public:
-    void checkResult(const std::string&) {
+    template <typename... ParameterTypes>
+    void checkResult(const std::string&, ParameterTypes...) {
         this->shouldSucceed();
     }
 };
@@ -20,8 +23,10 @@ public:
 template <>
 class AbstractSimpleAssertionTest<false> : public AbstractAssertionTest {
 public:
-    void checkResult(const std::string& failureMessage) {
-        this->shouldFail(failureMessage);
+    template <typename... ParameterTypes>
+    void checkResult(const std::string& failureMessage,
+            ParameterTypes... messageParameters) {
+        this->shouldFail(failureMessage, messageParameters...);
     }
 };
 

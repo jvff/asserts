@@ -6,7 +6,7 @@ TYPE_ASSERTION_TEST_CASE(ClassTest);
 TYPE_ASSERTION_TEST(ClassTest, isClassOrStruct) {
     AssertThat<TypeParam>::isClassOrStruct();
 
-    this->checkResult("Type should be a class or a struct");
+    this->checkResult("%s should be a class or a struct");
 }
 
 SHOULD_SUCCEED(ClassTest, isClassOrStruct, DummyClass, DummyType);

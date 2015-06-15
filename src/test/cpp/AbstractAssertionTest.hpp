@@ -1,6 +1,8 @@
 #ifndef ABSTRACT_ASSERTION_TEST_HPP
 #define ABSTRACT_ASSERTION_TEST_HPP
 
+#include <boost/format.hpp>
+
 #include "gtest/gtest.h"
 
 #include "FakeTestReporter.hpp"
@@ -20,6 +22,21 @@ public:
     void shouldSucceed() {
         EXPECT_TRUE(FakeTestReporter::succeeded);
         EXPECT_FALSE(FakeTestReporter::failed);
+    }
+
+    template <typename... ParameterTypes>
+    void shouldFail(const std::string& message, ParameterTypes... parameters) {
+        shouldFail(boost::format(message), parameters...);
+    }
+
+    template <typename ParameterType, typename... ParameterTypes>
+    void shouldFail(boost::format message, ParameterType parameter,
+            ParameterTypes... parameters) {
+        shouldFail(message % parameter, parameters...);
+    }
+
+    void shouldFail(boost::format& message) {
+        shouldFail(message.str());
     }
 
     void shouldFail(const std::string& message) {
