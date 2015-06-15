@@ -36,8 +36,12 @@ public:
 
     template <class T2>
     static void isSubClass(const Of<T2>&) {
-        test(std::is_base_of<T2, T>::value, "");
+        test(std::is_base_of<T2, T>::value, isSubClassFailureMessage,
+                TypeOf<T>(), TypeOf<T2>());
     }
+
+private:
+    static const std::string isSubClassFailureMessage;
 
 public:
     const T& subject;
