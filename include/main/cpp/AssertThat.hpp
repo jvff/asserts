@@ -3,16 +3,20 @@
 
 #include <string>
 
+#include <boost/format.hpp>
+
 #include "Of.hpp"
 #include "TestReporter.hpp"
+#include "TypeOf.hpp"
 
-#define ASSERTION(methodName, testCondition) \
+#define ASSERTION(methodName, testCondition, messageParameters...) \
     ASSERTION_WITH_MESSAGE(methodName, testCondition, \
-            methodName##FailureMessage)
+            methodName##FailureMessage, ## messageParameters)
 
-#define ASSERTION_WITH_MESSAGE(methodName, testCondition, failureMessageName) \
+#define ASSERTION_WITH_MESSAGE(methodName, testCondition, failureMessageName, \
+        messageParameters...) \
     void methodName() { \
-        test(testCondition, failureMessageName); \
+        test(testCondition, failureMessageName, ## messageParameters); \
     } \
 \
 private: \
@@ -24,8 +28,8 @@ template<typename T>
 class AssertThat {
 public:
     static ASSERTION(hasVirtualDestructor,
-            std::has_virtual_destructor<T>::value)
-    static ASSERTION(isClassOrStruct, std::is_class<T>::value)
+            std::has_virtual_destructor<T>::value, TypeOf<T>())
+    static ASSERTION(isClassOrStruct, std::is_class<T>::value, TypeOf<T>())
 
     template <class T2>
     static void isSubClass(const Of<T2>&) {
@@ -51,6 +55,26 @@ private:
             TestReporter::succeed();
         else
             TestReporter::fail(failureMessage);
+    }
+
+    template <typename... ParameterTypes>
+    static void test(bool result, const std::string& failureMessage,
+            ParameterTypes... messageParameters) {
+        if (result == true)
+            TestReporter::succeed();
+        else
+            fail(boost::format(failureMessage), messageParameters...);
+    }
+
+    static void fail(boost::format failureMessage) {
+        TestReporter::fail(failureMessage.str());
+    }
+
+    template <typename ParameterType, typename... ParameterTypes>
+    static void fail(boost::format failureMessage,
+            ParameterType messageParameter,
+            ParameterTypes... messageParameters) {
+        fail(failureMessage % messageParameter, messageParameters...);
     }
 };
 
