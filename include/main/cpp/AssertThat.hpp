@@ -9,6 +9,10 @@
 #include "TestReporter.hpp"
 #include "TypeOf.hpp"
 
+#define TYPE_ASSERTION(methodName, testCondition, messageParameters...) \
+    static ASSERTION(methodName, testCondition, TypeOf<T>(), \
+            ## messageParameters)
+
 #define ASSERTION(methodName, testCondition, messageParameters...) \
     ASSERTION_WITH_MESSAGE(methodName, testCondition, \
             methodName##FailureMessage, ## messageParameters)
@@ -27,9 +31,8 @@ public:
 template<typename T>
 class AssertThat {
 public:
-    static ASSERTION(hasVirtualDestructor,
-            std::has_virtual_destructor<T>::value, TypeOf<T>())
-    static ASSERTION(isClassOrStruct, std::is_class<T>::value, TypeOf<T>())
+    TYPE_ASSERTION(hasVirtualDestructor, std::has_virtual_destructor<T>::value)
+    TYPE_ASSERTION(isClassOrStruct, std::is_class<T>::value)
 
     template <class T2>
     static void isSubClass(const Of<T2>&) {
