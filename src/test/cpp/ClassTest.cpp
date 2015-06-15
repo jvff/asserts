@@ -15,7 +15,10 @@ SHOULD_FAIL(ClassTest, isClassOrStruct, DummyUnion);
 TYPE_ASSERTION_TEST_T(ClassTest, isSubClassOf, 2) {
     AssertThat<TypeParam1>::isSubClass(Of<TypeParam2>());
 
-    this->checkResult("Type should be a sub-class");
+    this->checkResult("%s should be a sub-class of %s", TypeOf<TypeParam2>());
 }
 
 SHOULD_SUCCEED(ClassTest, isSubClassOf, tuple<DerivedClass, BaseClass>);
+SHOULD_FAIL(ClassTest, isSubClassOf,
+        tuple<BaseClass, DerivedClass>,
+        tuple<DummyClass, BaseClass>);
