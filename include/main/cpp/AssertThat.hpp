@@ -14,13 +14,25 @@
             methodName##FailureMessage, TypeOf<T>()) \
     ASSERTION_MESSAGE_DECLARATION(methodName)
 
+#define TYPE_ASSERTION_WITH_PARAM(methodName, ...) \
+    template <typename T2> \
+    static ASSERTION_BODY_WITH_PARAMS_AND_MESSAGE(methodName, (__VA_ARGS__), \
+            (const Of<T2>&), \
+            methodName##FailureMessage, TypeOf<T>(), TypeOf<T2>()) \
+    ASSERTION_MESSAGE_DECLARATION(methodName)
+
 #define ASSERTION(methodName, testCondition) \
     ASSERTION_BODY_WITH_MESSAGE(methodName, testCondition, \
             methodName##FailureMessage) \
     ASSERTION_MESSAGE_DECLARATION(methodName)
 
 #define ASSERTION_BODY_WITH_MESSAGE(methodName, testCondition, ...) \
-    void methodName() { \
+    ASSERTION_BODY_WITH_PARAMS_AND_MESSAGE(methodName, testCondition, (), \
+            __VA_ARGS__)
+
+#define ASSERTION_BODY_WITH_PARAMS_AND_MESSAGE(methodName, testCondition, \
+        parameters, ...) \
+    void methodName parameters { \
         test(testCondition, __VA_ARGS__); \
     }
 
@@ -34,14 +46,7 @@ public:
     TYPE_ASSERTION(hasVirtualDestructor, std::has_virtual_destructor<T>::value)
     TYPE_ASSERTION(isClassOrStruct, std::is_class<T>::value)
 
-    template <class T2>
-    static void isSubClass(const Of<T2>&) {
-        test(std::is_base_of<T2, T>::value, isSubClassFailureMessage,
-                TypeOf<T>(), TypeOf<T2>());
-    }
-
-private:
-    static const std::string isSubClassFailureMessage;
+    TYPE_ASSERTION_WITH_PARAM(isSubClass, std::is_base_of<T2, T>::value)
 
 public:
     const T& subject;
