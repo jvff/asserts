@@ -1,5 +1,9 @@
-#include "NullTest.hpp"
 #include "ValueAssertionMacros.hpp"
+
+static const int dummyVariable = 0;
+
+static const void* dummyPointer = &dummyVariable;
+static const void* nullPointer = NULL;
 
 VALUE_ASSERTION_TEST_CASE(NullTest, const void*);
 
