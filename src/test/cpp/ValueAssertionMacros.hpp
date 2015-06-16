@@ -80,14 +80,13 @@ void AbstractParent<shouldSucceed>::TestBody()
     REGISTER_VALUE_ASSERTION_TEST(TestCase, TestName, fails, \
             __VA_ARGS__)
 
-#define REGISTER_VALUE_ASSERTION_TEST(TestCase, TestName, TestType, \
-        Parameters...) \
+#define REGISTER_VALUE_ASSERTION_TEST(TestCase, TestName, TestType, ...) \
     bool gtest_##TestCase##_##TestName##_##TestType##_registered_ \
             GTEST_ATTRIBUTE_UNUSED_ = \
         ::testing::internal::ValueAssertionTestRegistration<TestCase, \
                 GTEST_TEST_CLASS_NAME_(TestCase##_##TestName, TestType), \
                 BOOL_VALUE_OF_##TestType> \
                     ::Register(#TestCase "." #TestName, #TestType, \
-                            #Parameters, Parameters)
+                            #__VA_ARGS__, __VA_ARGS__)
 
 #endif
