@@ -12,20 +12,23 @@
 namespace testing {
 namespace internal {
 
-template <template <bool> class FixtureClassTemplate, class TestClass,
-        bool shouldSucceed, typename... Tail>
+template <template <typename, bool> class FixtureClassTemplate,
+        template <typename> class TestClassTemplate, bool shouldSucceed,
+        typename... Tail>
 class ValueAssertionTestRegistration {
 private:
     static bool Register(const std::string&, const std::string&,
             std::sregex_iterator&, Tail&... parameters);
 };
 
-template <template <bool> class FixtureClassTemplate, class TestClass,
-        bool shouldSucceed, typename ParameterType, typename... Tail>
-class ValueAssertionTestRegistration<FixtureClassTemplate, TestClass,
+template <template <typename, bool> class FixtureClassTemplate,
+        template <typename> class TestClassTemplate, bool shouldSucceed,
+        typename ParameterType, typename... Tail>
+class ValueAssertionTestRegistration<FixtureClassTemplate, TestClassTemplate,
         shouldSucceed, ParameterType, Tail...> {
 private:
-    typedef FixtureClassTemplate<shouldSucceed> FixtureClass;
+    typedef TestClassTemplate<ParameterType> TestClass;
+    typedef FixtureClassTemplate<ParameterType, shouldSucceed> FixtureClass;
     typedef ValueAssertionTestFactory<TestClass, ParameterType> TestFactory;
 
 public:
@@ -47,16 +50,16 @@ public:
 
         ++parameterNames;
 
-        return ValueAssertionTestRegistration<FixtureClassTemplate, TestClass,
-                shouldSucceed, Tail...>
+        return ValueAssertionTestRegistration<FixtureClassTemplate,
+                TestClassTemplate, shouldSucceed, Tail...>
                     ::Register(testCaseName, testName, parameterNames,
                             parameters...);
     }
 };
 
-template <template <bool> class FixtureClassTemplate, class TestClass,
-        bool shouldSucceed>
-class ValueAssertionTestRegistration<FixtureClassTemplate, TestClass,
+template <template <typename, bool> class FixtureClassTemplate,
+        template <typename> class TestClassTemplate, bool shouldSucceed>
+class ValueAssertionTestRegistration<FixtureClassTemplate, TestClassTemplate,
         shouldSucceed> {
 public:
     template <typename... ParameterTypes>
@@ -66,8 +69,8 @@ public:
         std::sregex_iterator parameterNamesIterator = { parameterNames.begin(),
                 parameterNames.end(), ExpressionRegEx::getRegEx() };
 
-        return ValueAssertionTestRegistration<FixtureClassTemplate, TestClass,
-                shouldSucceed, ParameterTypes...>
+        return ValueAssertionTestRegistration<FixtureClassTemplate,
+                TestClassTemplate, shouldSucceed, ParameterTypes...>
                     ::Register(testCaseName, testName, parameterNamesIterator,
                             parameters...);
     }

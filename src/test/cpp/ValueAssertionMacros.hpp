@@ -9,10 +9,10 @@
 #define BOOL_VALUE_OF_succeeds true
 #define BOOL_VALUE_OF_fails false
 
-#define VALUE_ASSERTION_TEST_CASE(TestCase, ParameterType) \
-template <bool shouldSucceed> \
+#define VALUE_ASSERTION_TEST_CASE(TestCase) \
+template <typename parameterType, bool shouldSucceed> \
 class TestCase : \
-    public AbstractValueAssertionTest<ParameterType, shouldSucceed> { \
+    public AbstractValueAssertionTest<parameterType, shouldSucceed> { \
 }
 
 #define VALUE_ASSERTION_TEST(TestCase, TestName) \
@@ -29,10 +29,10 @@ class TestCase : \
     START_VALUE_ASSERTION_TEST_BODY(AbstractParent)
 
 #define MAKE_VALUE_ASSERTION_TEST_PARENT_CLASS(TestCase, AbstractParent) \
-template <bool shouldSucceed> \
-class AbstractParent : public TestCase<shouldSucceed> { \
+template <typename parameterType, bool shouldSucceed> \
+class AbstractParent : public TestCase<parameterType, shouldSucceed> { \
 protected: \
-    typedef typename TestCase<shouldSucceed>::ParamType ParamType; \
+    typedef parameterType ParamType; \
 \
 private: \
     ParamType& parameter; \
@@ -44,7 +44,7 @@ protected: \
     virtual void TestBody(); \
 \
 private: \
-    using TestCase<shouldSucceed>::checkResult; \
+    using TestCase<parameterType, shouldSucceed>::checkResult; \
 }
 
 #define MAKE_VALUE_ASSERTION_TEST_CHILD_CLASS(TestCase, TestName, SuperClass, \
@@ -55,22 +55,23 @@ private: \
 
 #define MAKE_VALUE_ASSERTION_TEST_CHILD_CLASS_CALLED(ClassName, SuperClass, \
         ShouldSucceed) \
-class ClassName : public SuperClass<ShouldSucceed> { \
+template <typename parameterType> \
+class ClassName : public SuperClass<parameterType, ShouldSucceed> { \
 protected: \
-    typedef typename SuperClass<ShouldSucceed>::ParamType ParamType; \
+    typedef parameterType ParamType; \
 \
 public: \
     ClassName(ParamType& testParameter) : \
-            SuperClass<ShouldSucceed>(testParameter) { \
+            SuperClass<parameterType, ShouldSucceed>(testParameter) { \
     } \
 \
 protected: \
-    using SuperClass<ShouldSucceed>::TestBody; \
+    using SuperClass<parameterType, ShouldSucceed>::TestBody; \
 }
 
 #define START_VALUE_ASSERTION_TEST_BODY(AbstractParent) \
-template <bool shouldSucceed> \
-void AbstractParent<shouldSucceed>::TestBody()
+template <typename parameterType, bool shouldSucceed> \
+void AbstractParent<parameterType, shouldSucceed>::TestBody()
 
 #define VALUES_SHOULD_SUCCEED(TestCase, TestName, ...) \
     REGISTER_VALUE_ASSERTION_TEST(TestCase, TestName, succeeds, \
