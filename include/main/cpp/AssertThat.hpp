@@ -9,23 +9,26 @@
 #include "TestReporter.hpp"
 #include "TypeOf.hpp"
 
-#define TYPE_ASSERTION(methodName, testCondition, messageParameters...) \
-    static ASSERTION(methodName, testCondition, TypeOf<T>(), \
-            ## messageParameters)
+#define TYPE_ASSERTION(methodName, testCondition) \
+    static ASSERTION_P(methodName, testCondition, TypeOf<T>())
 
-#define ASSERTION(methodName, testCondition, messageParameters...) \
-    ASSERTION_WITH_MESSAGE(methodName, testCondition, \
-            methodName##FailureMessage, ## messageParameters)
+#define ASSERTION(methodName, testCondition) \
+    ASSERTION_BODY_WITH_MESSAGE(methodName, testCondition, \
+            methodName##FailureMessage) \
+    ASSERTION_MESSAGE_DECLARATION(methodName)
 
-#define ASSERTION_WITH_MESSAGE(methodName, testCondition, failureMessageName, \
-        messageParameters...) \
+#define ASSERTION_P(methodName, testCondition, ...) \
+    ASSERTION_BODY_WITH_MESSAGE(methodName, testCondition, \
+            methodName##FailureMessage, __VA_ARGS__) \
+    ASSERTION_MESSAGE_DECLARATION(methodName)
+
+#define ASSERTION_BODY_WITH_MESSAGE(methodName, testCondition, ...) \
     void methodName() { \
-        test(testCondition, failureMessageName, ## messageParameters); \
-    } \
-\
-private: \
-    static const std::string failureMessageName; \
-\
+        test(testCondition, __VA_ARGS__); \
+    }
+
+#define ASSERTION_MESSAGE_DECLARATION(methodName) \
+private: static const std::string methodName##FailureMessage; \
 public:
 
 template<typename T>
