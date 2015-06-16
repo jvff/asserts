@@ -1,5 +1,6 @@
 #include <tuple>
 
+#include "DummyTypes.hpp"
 #include "TypeAssertionMacros.hpp"
 
 using std::tuple;
@@ -18,11 +19,15 @@ SHOULD_SUCCEED(SameTypeTest, isTheSameAs,
         tuple<signed char, signed char>,
         tuple<unsigned char, unsigned char>,
         tuple<short, signed short int>,
-        tuple<unsigned long, unsigned long int>);
+        tuple<unsigned long, unsigned long int>,
+        tuple<DummyType, DummyTypes<0> >);
 SHOULD_FAIL(SameTypeTest, isTheSameAs,
         tuple<bool, int>,
         tuple<char, unsigned char>,
         tuple<char, signed char>,
         tuple<signed char, char>,
         tuple<unsigned char, char>,
-        tuple<unsigned int, int>);
+        tuple<unsigned int, int>,
+        tuple<DummyType, DummyTypes<1> >,
+        tuple<DummyType, int>,
+        tuple<int, DummyType>);
