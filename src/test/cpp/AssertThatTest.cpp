@@ -17,7 +17,6 @@ TEST(AssertThatTest, hasConstructorWithParameter) {
 
 TEST(AssertThatTest, hasNoOtherConstructor) {
     typedef AssertThat<DummyType> type;
-    typedef const DummyType& parameter;
 
     EXPECT_FALSE((std::is_default_constructible<type>::value));
     EXPECT_FALSE((std::is_copy_constructible<type>::value));
