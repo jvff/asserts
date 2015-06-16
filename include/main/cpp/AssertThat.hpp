@@ -10,16 +10,13 @@
 #include "TypeOf.hpp"
 
 #define TYPE_ASSERTION(methodName, testCondition) \
-    static ASSERTION_P(methodName, testCondition, TypeOf<T>())
+    static ASSERTION_BODY_WITH_MESSAGE(methodName, testCondition, \
+            methodName##FailureMessage, TypeOf<T>()) \
+    ASSERTION_MESSAGE_DECLARATION(methodName)
 
 #define ASSERTION(methodName, testCondition) \
     ASSERTION_BODY_WITH_MESSAGE(methodName, testCondition, \
             methodName##FailureMessage) \
-    ASSERTION_MESSAGE_DECLARATION(methodName)
-
-#define ASSERTION_P(methodName, testCondition, ...) \
-    ASSERTION_BODY_WITH_MESSAGE(methodName, testCondition, \
-            methodName##FailureMessage, __VA_ARGS__) \
     ASSERTION_MESSAGE_DECLARATION(methodName)
 
 #define ASSERTION_BODY_WITH_MESSAGE(methodName, testCondition, ...) \
