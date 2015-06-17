@@ -26,6 +26,13 @@
             methodName##FailureMessage) \
     ASSERTION_MESSAGE_DECLARATION(methodName)
 
+#define ASSERTION_WITH_PARAM(methodName, testCondition, ...) \
+    template <typename T2> \
+    ASSERTION_BODY_WITH_PARAMS_AND_MESSAGE(methodName, testCondition, \
+            (const T2& parameter), \
+            methodName##FailureMessage, __VA_ARGS__) \
+    ASSERTION_MESSAGE_DECLARATION(methodName)
+
 #define ASSERTION_BODY_WITH_MESSAGE(methodName, testCondition, ...) \
     ASSERTION_BODY_WITH_PARAMS_AND_MESSAGE(methodName, testCondition, (), \
             __VA_ARGS__)
@@ -61,6 +68,8 @@ public:
 
     ASSERTION(isNotNull, subject != NULL)
     ASSERTION(isNull, subject == NULL)
+
+    ASSERTION_WITH_PARAM(isEqualTo, subject == parameter, parameter, subject)
 
 private:
     static void test(bool result, const std::string& failureMessage) {
