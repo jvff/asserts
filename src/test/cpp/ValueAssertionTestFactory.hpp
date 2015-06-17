@@ -9,7 +9,7 @@ namespace internal {
 template <class TestClass, typename ParamType>
 class ValueAssertionTestFactory : public TestFactoryBase {
 private:
-    const ParamType& parameter;
+    const ParamType parameter;
 
 public:
     ValueAssertionTestFactory(const ParamType& testParameter) :
