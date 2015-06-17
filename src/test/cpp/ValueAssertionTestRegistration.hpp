@@ -18,7 +18,7 @@ template <template <typename, bool> class FixtureClassTemplate,
 class ValueAssertionTestRegistration {
 private:
     static bool Register(const std::string&, const std::string&,
-            std::sregex_iterator&, Tail&... parameters);
+            std::sregex_iterator&, const Tail&... parameters);
 };
 
 template <template <typename, bool> class FixtureClassTemplate,
@@ -34,7 +34,7 @@ private:
 public:
     static bool Register(const std::string& testCaseName,
             const std::string& testName, std::sregex_iterator& parameterNames,
-            ParameterType& parameter, Tail&... parameters) {
+            const ParameterType& parameter, const Tail&... parameters) {
         static std::sregex_iterator endOfParameterNames;
 
         GTEST_CHECK_(parameterNames != endOfParameterNames)
@@ -65,7 +65,7 @@ public:
     template <typename... ParameterTypes>
     static bool Register(const std::string& testCaseName,
             const std::string& testName, const std::string& parameterNames,
-            ParameterTypes&... parameters) {
+            const ParameterTypes&... parameters) {
         std::sregex_iterator parameterNamesIterator = { parameterNames.begin(),
                 parameterNames.end(), ExpressionRegEx::getRegEx() };
 

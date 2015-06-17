@@ -35,10 +35,10 @@ protected: \
     typedef parameterType ParamType; \
 \
 private: \
-    ParamType& parameter; \
+    const ParamType& parameter; \
 \
 protected: \
-    AbstractParent(ParamType& testParameter) : parameter(testParameter) { \
+    AbstractParent(const ParamType& testParameter) : parameter(testParameter) { \
     } \
 \
     virtual void TestBody(); \
@@ -61,7 +61,7 @@ protected: \
     typedef parameterType ParamType; \
 \
 public: \
-    ClassName(ParamType& testParameter) : \
+    ClassName(const ParamType& testParameter) : \
             SuperClass<parameterType, ShouldSucceed>(testParameter) { \
     } \
 \
