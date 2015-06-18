@@ -18,6 +18,9 @@ model {
                     staticLibraryFile = file("../mtrace_gtest/build/binaries/mtrace_gtest_mainStaticLibrary/libmtrace_gtest_main.a")
                 }
             }
+            pegtl {
+                headers.srcDir "../../lib/pegtl"
+            }
         }
     }
 
@@ -36,6 +39,7 @@ model {
                 lib library: 'mtrace_gtest_main', linkage: 'static'
                 lib library: 'mtrace_gtest', linkage: 'static'
                 lib library: 'gtest', linkage: 'static'
+                lib library: 'pegtl', linkage: 'api'
             }
         }
     }
