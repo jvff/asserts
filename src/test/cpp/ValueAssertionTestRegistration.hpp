@@ -1,12 +1,11 @@
 #ifndef VALUE_ASSERTION_TEST_REGISTRATION_HPP
 #define VALUE_ASSERTION_TEST_REGISTRATION_HPP
 
-#include <regex>
 #include <string>
 
 #include "gtest/gtest.h"
 
-#include "ExpressionRegEx.hpp"
+#include "ExpressionIterator.hpp"
 #include "ValueAssertionTestFactory.hpp"
 
 namespace testing {
@@ -18,7 +17,7 @@ template <template <typename, bool> class FixtureClassTemplate,
 class ValueAssertionTestRegistration {
 private:
     static bool Register(const std::string&, const std::string&,
-            std::sregex_iterator&, const Tail&... parameters);
+            ExpressionIterator&, const Tail&... parameters);
 };
 
 template <template <typename, bool> class FixtureClassTemplate,
@@ -33,15 +32,11 @@ private:
 
 public:
     static bool Register(const std::string& testCaseName,
-            const std::string& testName, std::sregex_iterator& parameterNames,
+            const std::string& testName, ExpressionIterator& parameterNames,
             const ParameterType& parameter, const Tail&... parameters) {
-        static std::sregex_iterator endOfParameterNames;
+        GTEST_CHECK_(parameterNames.hasMore()) << "Parameter list parse error";
 
-        GTEST_CHECK_(parameterNames != endOfParameterNames)
-            << "Parameter list parse error";
-
-        auto parameterName = (*parameterNames).str();
-
+        std::string parameterName = *parameterNames;
         std::string currentTestCaseName = testCaseName + "." + parameterName;
 
         MakeAndRegisterTestInfo(currentTestCaseName.c_str(), testName.c_str(),
@@ -66,8 +61,7 @@ public:
     static bool Register(const std::string& testCaseName,
             const std::string& testName, const std::string& parameterNames,
             const ParameterTypes&... parameters) {
-        std::sregex_iterator parameterNamesIterator = { parameterNames.begin(),
-                parameterNames.end(), ExpressionRegEx::getRegEx() };
+        ExpressionIterator parameterNamesIterator(parameterNames);
 
         return ValueAssertionTestRegistration<FixtureClassTemplate,
                 TestClassTemplate, shouldSucceed, ParameterTypes...>
@@ -76,7 +70,7 @@ public:
     }
 
     static bool Register(const std::string&, const std::string&,
-            std::sregex_iterator&) {
+            ExpressionIterator&) {
         return true;
     }
 };
