@@ -6,12 +6,13 @@
 #include <boost/format.hpp>
 
 #include "AssertionMethodMacros.hpp"
+#include "AssertionsSpecificFor.hpp"
 #include "Of.hpp"
 #include "TestReporter.hpp"
 #include "TypeOf.hpp"
 
 template<typename T>
-class AssertThat {
+class AssertThat : public AssertionsSpecificFor<T> {
 public:
     TYPE_ASSERTION(hasVirtualDestructor, std::has_virtual_destructor<T>::value)
     TYPE_ASSERTION(isClassOrStruct, std::is_class<T>::value)
