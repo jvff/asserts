@@ -8,6 +8,13 @@ TEST(AssertThatTest, classExists) {
     EXPECT_TRUE((std::is_class<AssertThat<DummyType> >::value));
 }
 
+TEST(AssertThatTest, hasSuperClass) {
+    typedef AssertThat<DummyType> subClass;
+    typedef AssertionsSpecificFor<DummyType> superClass;
+
+    EXPECT_TRUE((std::is_base_of<superClass, subClass>::value));
+}
+
 TEST(AssertThatTest, hasConstructorWithParameter) {
     typedef AssertThat<DummyType> type;
     typedef const DummyType& parameter;
