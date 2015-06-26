@@ -9,3 +9,8 @@ TEST(FailureMessageTest, structTemplateExists) {
 TEST(FailureMessageTest, invalidFailureMessageIsEmpty) {
     EXPECT_EQ("", FailureMessage<-1>::message);
 }
+
+TEST(FailureMessageTest, isNullFailureMessageExists) {
+    EXPECT_EQ("Pointer should be NULL",
+            FailureMessage<isNullFailureMessageId>::message);
+}
