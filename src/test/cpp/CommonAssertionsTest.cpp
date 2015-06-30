@@ -11,3 +11,9 @@ TEST_F(CommonAssertionsTest, testMethodSucceeds) {
 
     shouldSucceed();
 }
+
+TEST_F(CommonAssertionsTest, testMethodFails) {
+    FakeCommonAssertions::test(false, "Fake test failure message");
+
+    shouldFail("Fake test failure message");
+}
