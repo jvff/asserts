@@ -7,6 +7,7 @@
 
 #include "AssertionMethodMacros.hpp"
 #include "AssertionsSpecificFor.hpp"
+#include "FailureMessage.hpp"
 #include "Of.hpp"
 #include "TestReporter.hpp"
 #include "TypeOf.hpp"
