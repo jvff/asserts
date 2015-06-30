@@ -2,15 +2,15 @@
 #define FAILURE_MESSAGE_HPP
 
 #define DECLARE_FAILURE_MESSAGE_STRUCT_TEMPLATE() \
-    template <int messageId> \
+    template <int messageId, int unusedParameter> \
     DECLARE_FAILURE_MESSAGE_STRUCT()
 
 #define DECLARE_FAILURE_MESSAGE_STRUCT_TEMPLATE_SPECIALIZATION(MessageId) \
-    template <> \
-    DECLARE_FAILURE_MESSAGE_STRUCT(<MessageId>)
+    template <int unusedParameter> \
+    DECLARE_FAILURE_MESSAGE_STRUCT(<MessageId, unusedParameter>)
 
-#define DECLARE_FAILURE_MESSAGE_STRUCT(Specialization) \
-    struct FailureMessage Specialization { \
+#define DECLARE_FAILURE_MESSAGE_STRUCT(...) \
+    struct FailureMessageTemplate __VA_ARGS__ { \
         static const std::string message; \
     }
 
@@ -18,11 +18,14 @@
     const int MessageId = __COUNTER__
 
 #define DEFINE_MESSAGE_TEMPLATE(Message) \
-    template <int messageId> \
-    const std::string FailureMessage<messageId>::message = Message
+    template <int messageId, int unusedParameter> \
+    const std::string FailureMessageTemplate<messageId, unusedParameter> \
+	    ::message = Message
 
 #define DEFINE_MESSAGE(MessageId, Message) \
-    const std::string FailureMessage<MessageId>::message = Message
+    template <int unusedParameter> \
+    const std::string FailureMessageTemplate<MessageId, unusedParameter> \
+	    ::message = Message
 
 #define MAKE_MESSAGE(MessageId, Message) \
     DEFINE_MESSAGE_ID(MessageId); \
@@ -36,5 +39,8 @@ DECLARE_FAILURE_MESSAGE_STRUCT_TEMPLATE();
 DEFINE_MESSAGE_TEMPLATE("");
 
 MSG(isNull, "Pointer should be NULL");
+
+template <int messageId>
+using FailureMessage = FailureMessageTemplate<messageId, 0>;
 
 #endif
