@@ -1,6 +1,11 @@
 #ifndef ASSERTION_METHOD_MACROS_HPP
 #define ASSERTION_METHOD_MACROS_HPP
 
+#include "gtest/gtest.h"
+
+#include "FailureMessage.hpp"
+#include "TypeOf.hpp"
+
 #define TYPE_ASSERTION(methodName, testCondition) \
     static ASSERTION_BODY_WITH_MESSAGE(methodName, testCondition, \
             FAILURE_MESSAGE_FOR(methodName), TypeOf<T>())
