@@ -1,9 +1,7 @@
 #include <type_traits>
 
-#include "gtest/gtest.h"
+#include "CommonAssertionsTest.hpp"
 
-#include "CommonAssertions.hpp"
-
-TEST(CommonAssertionsTest, classExists) {
+TEST_F(CommonAssertionsTest, classExists) {
     EXPECT_TRUE((std::is_class<CommonAssertions>::value));
 }
