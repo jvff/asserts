@@ -3,9 +3,10 @@
 
 #include "gtest/gtest.h"
 
-#include "CommonAssertions.hpp"
+#include "AbstractAssertionTest.hpp"
+#include "FakeCommonAssertions.hpp"
 
-class CommonAssertionsTest : public testing::Test {
+class CommonAssertionsTest : public AbstractAssertionTest {
 };
 
 #endif
