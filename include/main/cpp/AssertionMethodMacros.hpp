@@ -4,6 +4,7 @@
 #include "gtest/gtest.h"
 
 #include "FailureMessage.hpp"
+#include "Of.hpp"
 #include "TypeOf.hpp"
 
 #define TYPE_ASSERTION(methodName, testCondition) \
