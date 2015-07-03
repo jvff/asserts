@@ -6,6 +6,7 @@
 #include "FailureMessage.hpp"
 #include "Of.hpp"
 #include "TypeOf.hpp"
+#include "With.hpp"
 
 #define TYPE_ASSERTION(methodName, testCondition) \
     static ASSERTION_BODY_WITH_MESSAGE(methodName, testCondition, \
@@ -16,6 +17,12 @@
     static ASSERTION_BODY_WITH_PARAMS_AND_MESSAGE(methodName, (__VA_ARGS__), \
             (const Of<T2>&), \
             FAILURE_MESSAGE_FOR(methodName), TypeOf<T>(), TypeOf<T2>())
+
+#define TYPE_ASSERTION_WITH_PARAMS(methodName, ...) \
+    template <typename... Params> \
+    static ASSERTION_BODY_WITH_PARAMS_AND_MESSAGE(methodName, (__VA_ARGS__), \
+            (const With<Params...>&), \
+            FAILURE_MESSAGE_FOR(methodName), TypeOf<T>())
 
 #define ASSERTION(methodName, testCondition) \
     ASSERTION_BODY_WITH_MESSAGE(methodName, testCondition, \
