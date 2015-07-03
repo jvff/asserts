@@ -11,12 +11,16 @@
 
 #define TYPENAMES_1 typename gtest_TypeParam_
 #define TYPENAMES_2 typename gtest_TypeParam1_, typename gtest_TypeParam2_
+#define TYPENAMES_N typename... TypeParams
+#define TYPENAMES_1N typename gtest_TypeParam1_, TYPENAMES_N
 
 #define TUPLE_1 gtest_TypeParam_
 #define TUPLE_2 std::tuple<gtest_TypeParam1_, gtest_TypeParam2_>
+#define TUPLE_1N std::tuple<gtest_TypeParam1_, TypeParams...>
 
 #define TYPEDEFS_1 typedef gtest_TypeParam_ TypeParam
 #define TYPEDEFS_2 typedef TUPLE_2 TypeParam; TYPEDEFS_2_
+#define TYPEDEFS_1N typedef TUPLE_1N TypeParam; TYPEDEFS_1_
 
 #define TYPEDEFS_1_ typedef gtest_TypeParam1_ TypeParam1
 #define TYPEDEFS_2_ typedef gtest_TypeParam2_ TypeParam2; TYPEDEFS_1_
