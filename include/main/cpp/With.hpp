@@ -5,4 +5,6 @@ template <typename...>
 class With {
 };
 
+typedef With<> WithoutParameters;
+
 #endif
