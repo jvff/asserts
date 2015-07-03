@@ -21,3 +21,7 @@ TEST(WithTest, twoTemplateParams) {
 TEST(WithTest, threeTemplateParams) {
     EXPECT_TRUE((std::is_class<With<DummyType, DummyType, DummyType> >::value));
 }
+
+TEST(WithTest, withoutParametersAliasExists) {
+    EXPECT_TRUE((std::is_same<With<>, WithoutParameters>::value));
+}
