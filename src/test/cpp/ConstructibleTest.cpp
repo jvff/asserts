@@ -5,7 +5,7 @@
 TYPE_ASSERTION_TEST_CASE(ConstructibleTest);
 
 TYPE_ASSERTION_TEST(ConstructibleTest, isConstructibleWith) {
-    AssertThat<TypeParam>::isConstructibleWith();
+    AssertThat<TypeParam>::isConstructible();
 
     this->checkResult("%s should be constructible");
 }
