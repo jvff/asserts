@@ -18,7 +18,8 @@ public:
     TYPE_ASSERTION_WITH_PARAM(isSubClass, std::is_base_of<T2, T>::value)
     TYPE_ASSERTION_WITH_PARAM(isTheSame, std::is_same<T, T2>::value)
 
-    TYPE_ASSERTION_WITH_PARAMS(isConstructible, std::is_constructible<T>::value)
+    TYPE_ASSERTION_WITH_PARAMS(isConstructible,
+	    std::is_constructible<T, Params...>::value)
 
 public:
     const T& subject;
