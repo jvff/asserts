@@ -1,8 +1,6 @@
 #include "ConstructibleTest.hpp"
 #include "TypeAssertionMacros.hpp"
 
-using std::tuple;
-
 TYPE_ASSERTION_TEST_CASE(ConstructibleTest);
 
 TYPE_ASSERTION_TEST_T(ConstructibleTest, isConstructibleWith, 1N) {
@@ -12,14 +10,14 @@ TYPE_ASSERTION_TEST_T(ConstructibleTest, isConstructibleWith, 1N) {
 }
 
 SHOULD_SUCCEED(ConstructibleTest, isConstructibleWith,
-	tuple<ClassWithDefaultConstructor>,
-	tuple<ClassWithConstructorWithOneIntParameter, int>,
-	tuple<ClassWithConstructorWithIntAndDummyParameter, int, DummyType>);
+	Pack<ClassWithDefaultConstructor>,
+	Pack<ClassWithConstructorWithOneIntParameter, int>,
+	Pack<ClassWithConstructorWithIntAndDummyParameter, int, DummyType>);
 SHOULD_FAIL(ConstructibleTest, isConstructibleWith,
-	tuple<ClassWithNoConstructor>,
-	tuple<ClassWithDefaultConstructor, int>,
-	tuple<ClassWithDefaultConstructor, DummyType>,
-	tuple<ClassWithConstructorWithOneIntParameter>,
-	tuple<ClassWithConstructorWithOneIntParameter, DummyType>,
-	tuple<ClassWithConstructorWithOneIntParameter, int, int>,
-	tuple<ClassWithConstructorWithIntAndDummyParameter, DummyType, int>);
+	Pack<ClassWithNoConstructor>,
+	Pack<ClassWithDefaultConstructor, int>,
+	Pack<ClassWithDefaultConstructor, DummyType>,
+	Pack<ClassWithConstructorWithOneIntParameter>,
+	Pack<ClassWithConstructorWithOneIntParameter, DummyType>,
+	Pack<ClassWithConstructorWithOneIntParameter, int, int>,
+	Pack<ClassWithConstructorWithIntAndDummyParameter, DummyType, int>);

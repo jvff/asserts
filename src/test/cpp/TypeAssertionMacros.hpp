@@ -14,13 +14,13 @@
 #define TYPENAMES_N typename... TypeParams
 #define TYPENAMES_1N typename gtest_TypeParam1_, TYPENAMES_N
 
-#define TUPLE_1 gtest_TypeParam_
-#define TUPLE_2 std::tuple<gtest_TypeParam1_, gtest_TypeParam2_>
-#define TUPLE_1N std::tuple<gtest_TypeParam1_, TypeParams...>
+#define PACK_1 gtest_TypeParam_
+#define PACK_2 Pack<gtest_TypeParam1_, gtest_TypeParam2_>
+#define PACK_1N Pack<gtest_TypeParam1_, TypeParams...>
 
 #define TYPEDEFS_1 typedef gtest_TypeParam_ TypeParam
-#define TYPEDEFS_2 typedef TUPLE_2 TypeParam; TYPEDEFS_2_
-#define TYPEDEFS_1N typedef TUPLE_1N TypeParam; TYPEDEFS_1_
+#define TYPEDEFS_2 typedef PACK_2 TypeParam; TYPEDEFS_2_
+#define TYPEDEFS_1N typedef PACK_1N TypeParam; TYPEDEFS_1_
 
 #define TYPEDEFS_1_ typedef gtest_TypeParam1_ TypeParam1
 #define TYPEDEFS_2_ typedef gtest_TypeParam2_ TypeParam2; TYPEDEFS_1_
@@ -58,7 +58,7 @@ class TestCase : public AbstractTypeAssertionTest<T, shouldSucceed> { \
 
 #define MAKE_TYPE_ASSERTION_TEST_PARENT_CLASS(TestCase, AbstractParent) \
 template <TYPENAMES_1, bool shouldSucceed> \
-class AbstractParent : public TestCase<TUPLE_1, shouldSucceed> { \
+class AbstractParent : public TestCase<PACK_1, shouldSucceed> { \
 MAKE_TYPE_ASSERTION_TEST_PARENT_CLASS_BODY(TestCase, 1); \
 }
 
@@ -68,8 +68,8 @@ template <typename, bool> \
 class AbstractParent; \
 \
 template <TYPENAMES_##NumParams, bool shouldSucceed> \
-class AbstractParent<TUPLE_##NumParams, shouldSucceed> : \
-        public TestCase<TUPLE_##NumParams, shouldSucceed> { \
+class AbstractParent<PACK_##NumParams, shouldSucceed> : \
+        public TestCase<PACK_##NumParams, shouldSucceed> { \
 MAKE_TYPE_ASSERTION_TEST_PARENT_CLASS_BODY(TestCase, NumParams); \
 }
 
@@ -96,9 +96,9 @@ protected: \
 #define MAKE_TYPE_ASSERTION_TEST_CHILD_CLASS_CALLED(ClassName, SuperClass, \
         ShouldSucceed) \
 template <TYPENAMES_1> \
-class ClassName : public SuperClass<TUPLE_1, ShouldSucceed> { \
+class ClassName : public SuperClass<PACK_1, ShouldSucceed> { \
 protected: \
-    using SuperClass<TUPLE_1, ShouldSucceed>::TestBody; \
+    using SuperClass<PACK_1, ShouldSucceed>::TestBody; \
 }
 
 #define MAKE_TYPE_ASSERTION_TEST_CHILD_CLASS_CALLED_T(ClassName, SuperClass, \
@@ -107,15 +107,15 @@ template <typename> \
 class ClassName; \
 \
 template <TYPENAMES_##NumParams> \
-class ClassName<TUPLE_##NumParams> : \
-        public SuperClass<TUPLE_##NumParams, ShouldSucceed> { \
+class ClassName<PACK_##NumParams> : \
+        public SuperClass<PACK_##NumParams, ShouldSucceed> { \
 protected: \
-    using SuperClass<TUPLE_##NumParams, ShouldSucceed>::TestBody; \
+    using SuperClass<PACK_##NumParams, ShouldSucceed>::TestBody; \
 }
 
 #define START_TYPE_ASSERTION_TEST_BODY(AbstractParent, NumParams) \
 template <TYPENAMES_##NumParams, bool shouldSucceed> \
-void AbstractParent<TUPLE_##NumParams, shouldSucceed>::TestBody()
+void AbstractParent<PACK_##NumParams, shouldSucceed>::TestBody()
 
 #define SHOULD_SUCCEED(TestCase, TestName, ...) \
     REGISTER_TYPE_ASSERTION_TEST(TestCase, TestName, succeeds, __VA_ARGS__)

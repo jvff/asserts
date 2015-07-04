@@ -1,9 +1,5 @@
-#include <tuple>
-
 #include "DummyTypes.hpp"
 #include "TypeAssertionMacros.hpp"
-
-using std::tuple;
 
 TYPE_ASSERTION_TEST_CASE(SameTypeTest);
 
@@ -14,20 +10,20 @@ TYPE_ASSERTION_TEST_T(SameTypeTest, isTheSameAs, 2) {
 }
 
 SHOULD_SUCCEED(SameTypeTest, isTheSameAs,
-        tuple<bool, bool>,
-        tuple<char, char>,
-        tuple<signed char, signed char>,
-        tuple<unsigned char, unsigned char>,
-        tuple<short, signed short int>,
-        tuple<unsigned long, unsigned long int>,
-        tuple<DummyType, DummyTypes<0> >);
+        Pack<bool, bool>,
+        Pack<char, char>,
+        Pack<signed char, signed char>,
+        Pack<unsigned char, unsigned char>,
+        Pack<short, signed short int>,
+        Pack<unsigned long, unsigned long int>,
+        Pack<DummyType, DummyTypes<0> >);
 SHOULD_FAIL(SameTypeTest, isTheSameAs,
-        tuple<bool, int>,
-        tuple<char, unsigned char>,
-        tuple<char, signed char>,
-        tuple<signed char, char>,
-        tuple<unsigned char, char>,
-        tuple<unsigned int, int>,
-        tuple<DummyType, DummyTypes<1> >,
-        tuple<DummyType, int>,
-        tuple<int, DummyType>);
+        Pack<bool, int>,
+        Pack<char, unsigned char>,
+        Pack<char, signed char>,
+        Pack<signed char, char>,
+        Pack<unsigned char, char>,
+        Pack<unsigned int, int>,
+        Pack<DummyType, DummyTypes<1> >,
+        Pack<DummyType, int>,
+        Pack<int, DummyType>);

@@ -18,7 +18,7 @@ TYPE_ASSERTION_TEST_T(ClassTest, isSubClassOf, 2) {
     this->checkResult("%s should be a sub-class of %s", TypeOf<TypeParam2>());
 }
 
-SHOULD_SUCCEED(ClassTest, isSubClassOf, tuple<DerivedClass, BaseClass>);
+SHOULD_SUCCEED(ClassTest, isSubClassOf, Pack<DerivedClass, BaseClass>);
 SHOULD_FAIL(ClassTest, isSubClassOf,
-        tuple<BaseClass, DerivedClass>,
-        tuple<DummyClass, BaseClass>);
+        Pack<BaseClass, DerivedClass>,
+        Pack<DummyClass, BaseClass>);
