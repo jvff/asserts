@@ -7,6 +7,10 @@ class ClassWithNoConstructor {
     ClassWithNoConstructor() = delete;
 };
 
+class AbstractClassWithDefaultConstructor {
+    virtual void abstractMethod() = 0;
+};
+
 class ClassWithDefaultConstructor {
 };
 

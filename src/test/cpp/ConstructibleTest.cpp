@@ -14,6 +14,7 @@ SHOULD_SUCCEED(ConstructibleTest, isConstructibleWith,
 	Pack<ClassWithConstructorWithOneIntParameter, int>,
 	Pack<ClassWithConstructorWithIntAndDummyParameter, int, DummyType>);
 SHOULD_FAIL(ConstructibleTest, isConstructibleWith,
+	Pack<AbstractClassWithDefaultConstructor>,
 	Pack<ClassWithNoConstructor>,
 	Pack<ClassWithDefaultConstructor, int>,
 	Pack<ClassWithDefaultConstructor, DummyType>,
