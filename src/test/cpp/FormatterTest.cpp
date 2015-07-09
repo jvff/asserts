@@ -16,3 +16,15 @@ TEST(FormatterTest, isConstructibleWithParameter) {
 
     EXPECT_TRUE((std::is_constructible<formatter, parameter>::value));
 }
+
+TEST(FormatterTest, formatterIsPrintable) {
+    int value = 2;
+
+    Formatter<int> formatter(value);
+    std::stringstream expected, actual;
+
+    expected << value;
+    actual << formatter;
+
+    EXPECT_EQ(expected.str(), actual.str());
+}
