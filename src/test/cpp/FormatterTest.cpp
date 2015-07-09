@@ -28,3 +28,10 @@ TEST(FormatterTest, formatterIsPrintable) {
 
     EXPECT_EQ(expected.str(), actual.str());
 }
+
+TEST(FormatterTest, formatFunctionReturnsFormatter) {
+    typedef Formatter<DummyType> expected;
+    typedef decltype(format(DummyType())) actual;
+
+    EXPECT_TRUE((std::is_same<expected, actual>::value));
+}
