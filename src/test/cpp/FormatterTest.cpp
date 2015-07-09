@@ -9,3 +9,10 @@
 TEST(FormatterTest, classTemplateExists) {
     EXPECT_TRUE((std::is_class<Formatter<DummyType> >::value));
 }
+
+TEST(FormatterTest, isConstructibleWithParameter) {
+    typedef Formatter<DummyType> formatter;
+    typedef DummyType parameter;
+
+    EXPECT_TRUE((std::is_constructible<formatter, parameter>::value));
+}
