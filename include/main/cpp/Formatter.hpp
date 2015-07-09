@@ -15,4 +15,9 @@ std::ostream& operator<<(std::ostream& stream, const Formatter<T>&) {
     return stream;
 }
 
+template <typename T>
+Formatter<T> format(const T& value) {
+    return Formatter<T>(value);
+}
+
 #endif
