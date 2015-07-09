@@ -11,3 +11,7 @@ TEST(IsPrintableTest, boolIsPrintable) {
 TEST(IsPrintableTest, unprintableClassIsntPrintable) {
     EXPECT_FALSE((IsPrintable<UnprintableClass>::value));
 }
+
+TEST(IsPrintableTest, printableClassIsPrintable) {
+    EXPECT_TRUE((IsPrintable<PrintableClass>::value));
+}
