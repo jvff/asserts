@@ -3,6 +3,9 @@
 
 template <typename T>
 class Formatter {
+public:
+    Formatter(const T&) {
+    }
 };
 
 #endif
