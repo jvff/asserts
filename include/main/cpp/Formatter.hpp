@@ -26,6 +26,13 @@ std::ostream& operator<<(std::ostream& stream, const Formatter<T>& formatter) {
     return stream;
 }
 
+template <>
+std::ostream& operator<<(std::ostream& stream, const Formatter<bool>&) {
+    stream << "true";
+
+    return stream;
+}
+
 template <typename T>
 Formatter<T> format(const T& value) {
     return Formatter<T>(value);
