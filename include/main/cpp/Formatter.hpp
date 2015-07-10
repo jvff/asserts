@@ -1,11 +1,19 @@
 #ifndef FORMATTER_HPP
 #define FORMATTER_HPP
 
+#include "IsPrintable.hpp"
+#include "TypeOf.hpp"
+
 template <typename T>
 class Formatter;
 
 template <typename T>
-std::ostream& operator<<(std::ostream&, const Formatter<T>&);
+typename std::enable_if<IsPrintable<T>::value, std::ostream&>::type
+	operator<<(std::ostream&, const Formatter<T>&);
+
+template <typename T>
+typename std::enable_if<!IsPrintable<T>::value, std::ostream&>::type
+	operator<<(std::ostream&, const Formatter<T>&);
 
 template <typename T>
 class Formatter {
@@ -20,8 +28,17 @@ public:
 };
 
 template <typename T>
-std::ostream& operator<<(std::ostream& stream, const Formatter<T>& formatter) {
+typename std::enable_if<IsPrintable<T>::value, std::ostream&>::type
+	operator<<(std::ostream& stream, const Formatter<T>& formatter) {
     stream << formatter.value;
+
+    return stream;
+}
+
+template <typename T>
+typename std::enable_if<!IsPrintable<T>::value, std::ostream&>::type
+	operator<<(std::ostream& stream, const Formatter<T>& formatter) {
+    stream << "?(" << TypeOf<T>() << "@" << (void*)&formatter.value << ")";
 
     return stream;
 }
