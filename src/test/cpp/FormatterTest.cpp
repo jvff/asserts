@@ -5,6 +5,7 @@
 #include "Formatter.hpp"
 
 #include "DummyTypes.hpp"
+#include "PrintableClass.hpp"
 
 TEST(FormatterTest, classTemplateExists) {
     EXPECT_TRUE((std::is_class<Formatter<DummyType> >::value));
@@ -58,4 +59,15 @@ TEST(FormatterTest, formatFalseValue) {
     stream << format(false);
 
     EXPECT_EQ("false", stream.str());
+}
+
+TEST(FormatterTest, formatPrintableClass) {
+    PrintableClass printableObject;
+    std::stringstream expected;
+    std::stringstream actual;
+
+    expected << "PrintableClass@" << (void*)&printableObject;
+    actual << format(printableObject);
+
+    EXPECT_EQ(expected.str(), actual.str());
 }
