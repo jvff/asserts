@@ -43,3 +43,11 @@ TEST(FormatterTest, formatValueOne) {
 
     EXPECT_EQ("1", stream.str());
 }
+
+TEST(FormatterTest, formatTrueValue) {
+    std::stringstream stream;
+
+    stream << format(true);
+
+    EXPECT_EQ("true", stream.str());
+}
