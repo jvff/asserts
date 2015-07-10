@@ -32,7 +32,7 @@ public:
     template <typename ParameterType, typename... ParameterTypes>
     void shouldFail(boost::format message, ParameterType parameter,
             ParameterTypes... parameters) {
-        shouldFail(message % parameter, parameters...);
+        shouldFail(message % format(parameter), parameters...);
     }
 
     void shouldFail(boost::format& message) {
