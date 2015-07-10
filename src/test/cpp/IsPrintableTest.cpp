@@ -2,7 +2,8 @@
 
 #include "IsPrintable.hpp"
 
-#include "IsPrintableTest.hpp"
+#include "PrintableClass.hpp"
+#include "UnprintableClass.hpp"
 
 TEST(IsPrintableTest, boolIsPrintable) {
     EXPECT_TRUE((IsPrintable<bool>::value));
