@@ -1,4 +1,3 @@
-#include <iostream>
 #include "ValueAssertionMacros.hpp"
 
 VALUE_ASSERTION_TEST_CASE(EqualsTest);
