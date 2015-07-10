@@ -51,3 +51,11 @@ TEST(FormatterTest, formatTrueValue) {
 
     EXPECT_EQ("true", stream.str());
 }
+
+TEST(FormatterTest, formatFalseValue) {
+    std::stringstream stream;
+
+    stream << format(false);
+
+    EXPECT_EQ("false", stream.str());
+}
