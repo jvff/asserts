@@ -27,6 +27,23 @@ public:
     }
 };
 
+template <>
+class Formatter<bool> {
+    friend std::ostream& operator<< <bool>(std::ostream&,
+            const Formatter<bool>&);
+
+private:
+    std::string value;
+
+public:
+    Formatter(bool parameter) {
+        if (parameter == true)
+            value = "true";
+        else
+            value = "false";
+    }
+};
+
 template <typename T>
 typename std::enable_if<IsPrintable<T>::value, std::ostream&>::type
 	operator<<(std::ostream& stream, const Formatter<T>& formatter) {
@@ -39,17 +56,6 @@ template <typename T>
 typename std::enable_if<!IsPrintable<T>::value, std::ostream&>::type
 	operator<<(std::ostream& stream, const Formatter<T>& formatter) {
     stream << "?(" << TypeOf<T>() << "@" << (void*)&formatter.value << ")";
-
-    return stream;
-}
-
-template <>
-std::ostream& operator<<(std::ostream& stream,
-	const Formatter<bool>& formatter) {
-    if (formatter.value == true)
-	stream << "true";
-    else
-	stream << "false";
 
     return stream;
 }
