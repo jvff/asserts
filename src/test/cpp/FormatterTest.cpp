@@ -6,6 +6,7 @@
 
 #include "DummyTypes.hpp"
 #include "PrintableClass.hpp"
+#include "UnprintableClass.hpp"
 
 TEST(FormatterTest, classTemplateExists) {
     EXPECT_TRUE((std::is_class<Formatter<DummyType> >::value));
@@ -68,6 +69,17 @@ TEST(FormatterTest, formatPrintableClass) {
 
     expected << "PrintableClass@" << (void*)&printableObject;
     actual << format(printableObject);
+
+    EXPECT_EQ(expected.str(), actual.str());
+}
+
+TEST(FormatterTest,formatUnprintableClass) {
+    UnprintableClass unprintableObject;
+    std::stringstream expected;
+    std::stringstream actual;
+
+    expected << "?(UnprintableClass@" << (void*)&unprintableObject << ")";
+    actual << format(unprintableObject);
 
     EXPECT_EQ(expected.str(), actual.str());
 }
