@@ -35,3 +35,11 @@ TEST(FormatterTest, formatFunctionReturnsFormatter) {
 
     EXPECT_TRUE((std::is_same<expected, actual>::value));
 }
+
+TEST(FormatterTest, formatValueOne) {
+    std::stringstream stream;
+
+    stream << format(1);
+
+    EXPECT_EQ("1", stream.str());
+}
