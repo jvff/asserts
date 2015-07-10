@@ -7,6 +7,7 @@
 
 #include "AssertionMethodMacros.hpp"
 #include "AssertionsSpecificFor.hpp"
+#include "Formatter.hpp"
 #include "TestReporter.hpp"
 
 template<typename T>
@@ -61,7 +62,7 @@ private:
     static void fail(boost::format failureMessage,
             ParameterType messageParameter,
             ParameterTypes... messageParameters) {
-        fail(failureMessage % messageParameter, messageParameters...);
+        fail(failureMessage % format(messageParameter), messageParameters...);
     }
 };
 
