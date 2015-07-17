@@ -46,6 +46,7 @@ MSG(isTheSame, "%s should be the same type as %s");
 
 MSG(isConstMethod, "Expected method to be const qualified");
 MSG(isEqualTo, "Expected something equal to %s, but %s was found");
+MSG(isNotEqualTo, "Expected something not equal to %s, but %s was found");
 MSG(isNotNull, "Pointer should not be NULL");
 MSG(isNull, "Pointer should be NULL");
 

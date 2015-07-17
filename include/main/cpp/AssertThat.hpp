@@ -36,6 +36,8 @@ public:
     ASSERTION(isNull, subject == NULL)
 
     ASSERTION_WITH_PARAM(isEqualTo, subject == parameter, parameter, subject)
+    ASSERTION_WITH_PARAM(isNotEqualTo, !(subject == parameter), parameter,
+            subject)
 
 private:
     static void test(bool result, const std::string& failureMessage) {
