@@ -7,6 +7,7 @@
 
 #include "ExpressionIterator.hpp"
 #include "ValueAssertionTestFactory.hpp"
+#include "VoidValueAssertionTest.hpp"
 
 namespace testing {
 namespace internal {
@@ -72,6 +73,18 @@ public:
     static bool Register(const std::string&, const std::string&,
             ExpressionIterator&) {
         return true;
+    }
+};
+
+template <template <typename, bool> class FixtureClassTemplate,
+        bool shouldSucceed>
+class ValueAssertionTestRegistration<FixtureClassTemplate,
+        VoidValueAssertionTest, shouldSucceed> {
+public:
+    template <typename... ParameterTypes>
+    static bool Register(const std::string&, const std::string&,
+            const std::string&, const ParameterTypes&...) {
+        return false;
     }
 };
 
