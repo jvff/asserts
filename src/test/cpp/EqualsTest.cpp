@@ -9,6 +9,15 @@ VALUE_ASSERTION_TEST(EqualsTest, isEqualTo) {
             std::get<1>(parameter), std::get<0>(parameter));
 }
 
+VALUE_ASSERTION_TEST(EqualsTest, isNotEqualTo) {
+    assertThat(std::get<0>(parameter)).isNotEqualTo(std::get<1>(parameter));
+
+    checkResult("Expected something not equal to %s, but %s was found",
+            std::get<1>(parameter), std::get<0>(parameter));
+}
+
+VALUE_ASSERTION_TESTS_ARE_OPPOSITE(EqualsTest, isEqualTo, isNotEqualTo);
+
 VALUES_SHOULD_SUCCEED(EqualsTest, isEqualTo,
         std::make_tuple(true, true),
         std::make_tuple(false, false),
