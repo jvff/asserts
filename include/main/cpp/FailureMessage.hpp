@@ -41,6 +41,7 @@ DEFINE_MESSAGE_TEMPLATE("");
 MSG(hasVirtualDestructor, "%s should have virtual destructor");
 MSG(isClassOrStruct, "%s should be a class or a struct");
 MSG(isConstructible, "%s should be constructible");
+MSG(isCopyConstructible, "%s should be copy constructible");
 MSG(isSubClass, "%s should be a sub-class of %s");
 MSG(isTheSame, "%s should be the same type as %s");
 

@@ -15,6 +15,7 @@ class AssertThat : public AssertionsSpecificFor<T> {
 public:
     TYPE_ASSERTION(hasVirtualDestructor, std::has_virtual_destructor<T>::value)
     TYPE_ASSERTION(isClassOrStruct, std::is_class<T>::value)
+    TYPE_ASSERTION(isCopyConstructible, std::is_copy_constructible<T>::value)
 
     TYPE_ASSERTION_WITH_PARAM(isSubClass, std::is_base_of<T2, T>::value)
     TYPE_ASSERTION_WITH_PARAM(isTheSame, std::is_same<T, T2>::value)
