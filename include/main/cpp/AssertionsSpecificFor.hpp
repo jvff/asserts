@@ -13,6 +13,7 @@ class AssertionsSpecificFor<ReturnType(ClassType::*)(ParameterTypes...)> :
         public CommonAssertions {
 public:
     ASSERTION(isConstMethod, false)
+    ASSERTION(isMethod, true)
 };
 
 template <typename ClassType, typename ReturnType, typename... ParameterTypes>
@@ -20,6 +21,7 @@ class AssertionsSpecificFor<ReturnType(ClassType::*)(ParameterTypes...) const> :
         public CommonAssertions {
 public:
     ASSERTION(isConstMethod, true)
+    ASSERTION(isMethod, true)
 };
 
 #endif

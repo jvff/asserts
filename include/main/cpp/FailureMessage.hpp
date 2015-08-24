@@ -49,6 +49,7 @@ MSG(isTheSame, "%s should be the same type as %s");
 MSG(isAtSameAddressAs, "Expected %s to be at the same address as %s");
 MSG(isConstMethod, "Expected method to be const qualified");
 MSG(isEqualTo, "Expected something equal to %s, but %s was found");
+MSG(isMethod, "Expected %s to be a method");
 MSG(isNotAtSameAddressAs, "Expected %s to not be at the same address as %s");
 MSG(isNotEqualTo, "Expected something not equal to %s, but %s was found");
 MSG(isNotNull, "Pointer should not be NULL");
