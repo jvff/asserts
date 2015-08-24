@@ -40,8 +40,8 @@ public:
     ASSERTION_WITH_PARAM(isNotEqualTo, !(subject == parameter), parameter,
             subject)
 
-    ASSERTION_WITH_PARAM(isAtSameAddressAs, &subject == &parameter, parameter,
-            subject)
+    ASSERTION_WITH_PARAM(isAtSameAddressAs, &subject == &parameter, subject,
+            parameter)
 
 private:
     static void test(bool result, const std::string& failureMessage) {
@@ -53,7 +53,7 @@ private:
 
     template <typename... ParameterTypes>
     static void test(bool result, const std::string& failureMessage,
-            ParameterTypes... messageParameters) {
+            const ParameterTypes&... messageParameters) {
         if (result == true)
             TestReporter::succeed();
         else
@@ -66,8 +66,8 @@ private:
 
     template <typename ParameterType, typename... ParameterTypes>
     static void fail(boost::format failureMessage,
-            ParameterType messageParameter,
-            ParameterTypes... messageParameters) {
+            const ParameterType& messageParameter,
+            const ParameterTypes&... messageParameters) {
         fail(failureMessage % format(messageParameter), messageParameters...);
     }
 };
