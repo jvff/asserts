@@ -1,14 +1,8 @@
 #ifndef ASSERT_THAT_HPP
 #define ASSERT_THAT_HPP
 
-#include <string>
-
-#include <boost/format.hpp>
-
 #include "AssertionMethodMacros.hpp"
 #include "AssertionsSpecificFor.hpp"
-#include "Formatter.hpp"
-#include "TestReporter.hpp"
 
 template<typename T>
 class AssertThat : public AssertionsSpecificFor<T> {
@@ -45,27 +39,6 @@ public:
             parameter)
     ASSERTION_WITH_PARAM(isNotAtSameAddressAs, &subject != &parameter, subject,
             parameter)
-
-private:
-    template <typename... ParameterTypes>
-    static void test(bool result, const std::string& failureMessage,
-            const ParameterTypes&... messageParameters) {
-        if (result == true)
-            TestReporter::succeed();
-        else
-            fail(boost::format(failureMessage), messageParameters...);
-    }
-
-    static void fail(boost::format failureMessage) {
-        TestReporter::fail(failureMessage.str());
-    }
-
-    template <typename ParameterType, typename... ParameterTypes>
-    static void fail(boost::format failureMessage,
-            const ParameterType& messageParameter,
-            const ParameterTypes&... messageParameters) {
-        fail(failureMessage % format(messageParameter), messageParameters...);
-    }
 };
 
 #endif

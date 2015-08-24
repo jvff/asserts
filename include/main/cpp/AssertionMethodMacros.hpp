@@ -41,7 +41,7 @@
 #define ASSERTION_BODY_WITH_PARAMS_AND_MESSAGE(methodName, testCondition, \
         parameters, ...) \
     void methodName parameters { \
-        test(testCondition, __VA_ARGS__); \
+        CommonAssertions::test(testCondition, __VA_ARGS__); \
     }
 
 #define FAILURE_MESSAGE_FOR(MethodName) \
