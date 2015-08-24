@@ -47,13 +47,6 @@ public:
             parameter)
 
 private:
-    static void test(bool result, const std::string& failureMessage) {
-        if (result == true)
-            TestReporter::succeed();
-        else
-            TestReporter::fail(failureMessage);
-    }
-
     template <typename... ParameterTypes>
     static void test(bool result, const std::string& failureMessage,
             const ParameterTypes&... messageParameters) {
