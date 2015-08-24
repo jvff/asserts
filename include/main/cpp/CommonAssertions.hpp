@@ -10,6 +10,9 @@
 #include "TestReporter.hpp"
 
 class CommonAssertions {
+public:
+    ASSERTION(isMethod, false)
+
 protected:
     static void test(bool result, const std::string& failureMessage) {
         if (result == true)
