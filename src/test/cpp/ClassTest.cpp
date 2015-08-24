@@ -12,6 +12,18 @@ TYPE_ASSERTION_TEST(ClassTest, isClassOrStruct) {
 SHOULD_SUCCEED(ClassTest, isClassOrStruct, DummyClass, DummyType);
 SHOULD_FAIL(ClassTest, isClassOrStruct, DummyUnion);
 
+TYPE_ASSERTION_TEST(ClassTest, isAbstractClassOrStruct) {
+    AssertThat<TypeParam>::isAbstractClassOrStruct();
+
+    this->checkResult("%s should be an abstract class or struct");
+}
+
+SHOULD_SUCCEED(ClassTest, isAbstractClassOrStruct,
+        DummyAbstractClass,
+        DummyAbstractStruct,
+        DummyAbstractSubClass,
+        DummyAbstractSubStruct);
+
 TYPE_ASSERTION_TEST_T(ClassTest, isSubClassOf, 2) {
     AssertThat<TypeParam1>::isSubClass(Of<TypeParam2>());
 

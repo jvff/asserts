@@ -9,6 +9,21 @@ class DummyClass {
 union DummyUnion {
 };
 
+class DummyAbstractClass {
+public:
+    virtual void abstractMethod() = 0;
+};
+
+struct DummyAbstractStruct {
+    virtual void abstractMethod() = 0;
+};
+
+class DummyAbstractSubClass : DummyAbstractClass {
+};
+
+struct DummyAbstractSubStruct : DummyAbstractStruct {
+};
+
 class BaseClass {
 };
 
