@@ -24,6 +24,16 @@ class DummyAbstractSubClass : DummyAbstractClass {
 struct DummyAbstractSubStruct : DummyAbstractStruct {
 };
 
+class DummyConcreteSubClass : DummyAbstractClass {
+    void abstractMethod() override {
+    }
+};
+
+struct DummyConcreteSubStruct : DummyAbstractStruct {
+    void abstractMethod() override {
+    }
+};
+
 class BaseClass {
 };
 

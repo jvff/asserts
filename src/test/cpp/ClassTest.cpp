@@ -23,6 +23,8 @@ SHOULD_SUCCEED(ClassTest, isAbstractClassOrStruct,
         DummyAbstractStruct,
         DummyAbstractSubClass,
         DummyAbstractSubStruct);
+SHOULD_FAIL(ClassTest, isAbstractClassOrStruct, DummyUnion, DummyClass,
+        DummyType, DummyConcreteSubClass, DummyConcreteSubStruct);
 
 TYPE_ASSERTION_TEST_T(ClassTest, isSubClassOf, 2) {
     AssertThat<TypeParam1>::isSubClass(Of<TypeParam2>());
