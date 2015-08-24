@@ -3,6 +3,7 @@
 
 static auto constMethod = &DummyClass::constMethod;
 static auto nonConstMethod = &DummyClass::nonConstMethod;
+static auto dummyObject = DummyClass();
 
 VALUE_ASSERTION_TEST_CASE(MethodTest);
 
@@ -13,6 +14,7 @@ VALUE_ASSERTION_TEST(MethodTest, isMethod) {
 }
 
 VALUES_SHOULD_SUCCEED(MethodTest, isMethod, constMethod, nonConstMethod);
+VALUES_SHOULD_FAIL(MethodTest, isMethod, dummyObject);
 
 VALUE_ASSERTION_TEST(MethodTest, isConstMethod) {
     assertThat(parameter).isConstMethod();
