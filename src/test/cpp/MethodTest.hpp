@@ -1,5 +1,5 @@
-#ifndef CONST_METHOD_TEST_HPP
-#define CONST_METHOD_TEST_HPP
+#ifndef METHOD_TEST_HPP
+#define METHOD_TEST_HPP
 
 #include "gtest/gtest.h"
 
