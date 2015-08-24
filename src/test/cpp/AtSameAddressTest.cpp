@@ -13,6 +13,19 @@ VALUE_ASSERTION_TEST(AtSameAddressTest, isAtSameAddressAs) {
             secondParameter);
 }
 
+VALUE_ASSERTION_TEST(AtSameAddressTest, isNotAtSameAddressAs) {
+    auto& firstParameter = std::get<0>(parameter);
+    auto& secondParameter = std::get<1>(parameter);
+
+    assertThat(firstParameter).isNotAtSameAddressAs(secondParameter);
+
+    checkResult("Expected %s to not be at the same address as %s",
+            firstParameter, secondParameter);
+}
+
+VALUE_ASSERTION_TESTS_ARE_OPPOSITE(AtSameAddressTest, isAtSameAddressAs,
+        isNotAtSameAddressAs);
+
 static DummyType firstVariable;
 static DummyType secondVariable;
 static auto& firstRefToFirstVariable = firstVariable;
