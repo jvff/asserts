@@ -14,11 +14,18 @@ VALUE_ASSERTION_TEST(AtSameAddressTest, isAtSameAddressAs) {
 }
 
 static DummyType firstVariable;
+static DummyType secondVariable;
 static auto& firstRefToFirstVariable = firstVariable;
 static auto& secondRefToFirstVariable = firstVariable;
+static auto& refToSecondVariable = secondVariable;
 
 VALUES_SHOULD_SUCCEED(AtSameAddressTest, isAtSameAddressAs,
         std::tie(firstRefToFirstVariable, firstRefToFirstVariable),
         std::tie(secondRefToFirstVariable, secondRefToFirstVariable),
         std::tie(firstRefToFirstVariable, secondRefToFirstVariable),
         std::tie(secondRefToFirstVariable, firstRefToFirstVariable));
+VALUES_SHOULD_FAIL(AtSameAddressTest, isAtSameAddressAs,
+        std::tie(firstRefToFirstVariable, refToSecondVariable),
+        std::tie(secondRefToFirstVariable, refToSecondVariable),
+        std::tie(refToSecondVariable, firstRefToFirstVariable),
+        std::tie(refToSecondVariable, secondRefToFirstVariable));

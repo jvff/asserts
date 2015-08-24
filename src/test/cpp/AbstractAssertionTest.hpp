@@ -25,13 +25,14 @@ public:
     }
 
     template <typename... ParameterTypes>
-    void shouldFail(const std::string& message, ParameterTypes... parameters) {
+    void shouldFail(const std::string& message,
+            const ParameterTypes&... parameters) {
         shouldFail(boost::format(message), parameters...);
     }
 
     template <typename ParameterType, typename... ParameterTypes>
-    void shouldFail(boost::format message, ParameterType parameter,
-            ParameterTypes... parameters) {
+    void shouldFail(boost::format message, const ParameterType& parameter,
+            const ParameterTypes&... parameters) {
         shouldFail(message % format(parameter), parameters...);
     }
 

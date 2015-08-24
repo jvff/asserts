@@ -8,14 +8,14 @@ class AbstractSimpleAssertionTest : public AbstractAssertionTest {
 public:
     template <typename... ParameterTypes>
     void checkResult(const std::string& failureMessage,
-            ParameterTypes... messageParameters);
+            const ParameterTypes&... messageParameters);
 };
 
 template <>
 class AbstractSimpleAssertionTest<true> : public AbstractAssertionTest {
 public:
     template <typename... ParameterTypes>
-    void checkResult(const std::string&, ParameterTypes...) {
+    void checkResult(const std::string&, const ParameterTypes&...) {
         this->shouldSucceed();
     }
 };
@@ -25,7 +25,7 @@ class AbstractSimpleAssertionTest<false> : public AbstractAssertionTest {
 public:
     template <typename... ParameterTypes>
     void checkResult(const std::string& failureMessage,
-            ParameterTypes... messageParameters) {
+            const ParameterTypes&... messageParameters) {
         this->shouldFail(failureMessage, messageParameters...);
     }
 };
