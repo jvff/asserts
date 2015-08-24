@@ -6,6 +6,14 @@ static auto nonConstMethod = &DummyClass::nonConstMethod;
 
 VALUE_ASSERTION_TEST_CASE(MethodTest);
 
+VALUE_ASSERTION_TEST(MethodTest, isMethod) {
+    assertThat(parameter).isMethod();
+
+    checkResult("Expected %s to be a method");
+}
+
+VALUES_SHOULD_SUCCEED(MethodTest, isMethod, constMethod, nonConstMethod);
+
 VALUE_ASSERTION_TEST(MethodTest, isConstMethod) {
     assertThat(parameter).isConstMethod();
 
