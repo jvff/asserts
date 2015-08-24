@@ -42,6 +42,8 @@ public:
 
     ASSERTION_WITH_PARAM(isAtSameAddressAs, &subject == &parameter, subject,
             parameter)
+    ASSERTION_WITH_PARAM(isNotAtSameAddressAs, &subject != &parameter, subject,
+            parameter)
 
 private:
     static void test(bool result, const std::string& failureMessage) {
