@@ -17,3 +17,12 @@ TEST_F(CommonAssertionsTest, testMethodFails) {
 
     shouldFail("Fake test failure message");
 }
+
+TEST_F(CommonAssertionsTest, testMethodFailsWithParameter) {
+    int parameter = 86;
+    const std::string message = "Fake test failure message with parameter (%s)";
+
+    FakeCommonAssertions::test(false, message, parameter);
+
+    shouldFail("Fake test failure message with parameter (86)");
+}
