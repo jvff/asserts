@@ -7,3 +7,7 @@
 TEST(AssertionTesterTest, classExists) {
     EXPECT_TRUE((std::is_class<AssertionTester>::value));
 }
+
+TEST(AssertionTesterTest, isNotConstructible) {
+    EXPECT_FALSE((std::is_constructible<AssertionTester>::value));
+}
