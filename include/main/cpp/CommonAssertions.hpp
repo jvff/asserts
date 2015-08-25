@@ -3,6 +3,7 @@
 
 #include "AssertionMethodMacros.hpp"
 
+template <typename T>
 class CommonAssertions {
 public:
     ASSERTION(isMethod, false)
