@@ -11,7 +11,7 @@ TEST(AssertionsSpecificForTest, classTemplateExists) {
 }
 
 TEST(AssertionsSpecificForTest, isSubClassOfCommonAssertions) {
-    typedef CommonAssertions superClass;
+    typedef CommonAssertions<DummyType> superClass;
     typedef AssertionsSpecificFor<DummyType> subClass;
 
     EXPECT_TRUE((std::is_base_of<superClass, subClass>::value));

@@ -4,6 +4,7 @@
 #include "gtest/gtest.h"
 
 #include "AbstractAssertionTest.hpp"
+#include "DummyTypes.hpp"
 #include "FakeCommonAssertions.hpp"
 
 class CommonAssertionsTest : public AbstractAssertionTest {

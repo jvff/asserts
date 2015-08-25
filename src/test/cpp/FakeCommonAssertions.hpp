@@ -5,7 +5,8 @@
 
 #include "CommonAssertions.hpp"
 
-class FakeCommonAssertions : public CommonAssertions {
+template <typename T>
+class FakeCommonAssertions : public CommonAssertions<T> {
 };
 
 #endif
