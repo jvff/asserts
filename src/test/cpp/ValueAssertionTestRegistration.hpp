@@ -6,7 +6,7 @@
 #include "gtest/gtest.h"
 
 #include "ExpressionIterator.hpp"
-#include "ValueAssertionTestFactory.hpp"
+#include "CustomParameterizedTestFactory.hpp"
 #include "VoidValueAssertionTest.hpp"
 
 namespace testing {
@@ -29,7 +29,8 @@ class ValueAssertionTestRegistration<FixtureClassTemplate, TestClassTemplate,
 private:
     typedef TestClassTemplate<ParameterType> TestClass;
     typedef FixtureClassTemplate<ParameterType, shouldSucceed> FixtureClass;
-    typedef ValueAssertionTestFactory<TestClass, ParameterType> TestFactory;
+    typedef CustomParameterizedTestFactory<TestClass, ParameterType>
+            TestFactory;
 
 public:
     static bool Register(const std::string& testCaseName,

@@ -1,5 +1,5 @@
-#ifndef VALUE_ASSERTION_TEST_FACTORY_HPP
-#define VALUE_ASSERTION_TEST_FACTORY_HPP
+#ifndef CUSTOM_PARAMETERIZED_TEST_FACTORY_HPP
+#define CUSTOM_PARAMETERIZED_TEST_FACTORY_HPP
 
 #include "gtest/gtest.h"
 
@@ -7,12 +7,12 @@ namespace testing {
 namespace internal {
 
 template <class TestClass, typename ParamType>
-class ValueAssertionTestFactory : public TestFactoryBase {
+class CustomParameterizedTestFactory : public TestFactoryBase {
 private:
     const ParamType parameter;
 
 public:
-    ValueAssertionTestFactory(const ParamType& testParameter) :
+    CustomParameterizedTestFactory(const ParamType& testParameter) :
             parameter(testParameter) {
     }
 
