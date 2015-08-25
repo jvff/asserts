@@ -1,18 +1,18 @@
-#include <type_traits>
+#include "AssertionsSpecificForTest.hpp"
 
-#include "gtest/gtest.h"
+using MethodType = decltype(&DummyClass::method);
+using ConstMethodType = decltype(&DummyClass::constMethod);
 
-#include "AssertionsSpecificFor.hpp"
+using TypesToTest = testing::Types<DummyType, MethodType, ConstMethodType>;
+TYPED_TEST_CASE(AssertionsSpecificForTest, TypesToTest);
 
-#include "DummyTypes.hpp"
-
-TEST(AssertionsSpecificForTest, classTemplateExists) {
-    EXPECT_TRUE((std::is_class<AssertionsSpecificFor<DummyType> >::value));
+TYPED_TEST(AssertionsSpecificForTest, classTemplateExists) {
+    EXPECT_TRUE((std::is_class<AssertionsSpecificFor<TypeParam> >::value));
 }
 
-TEST(AssertionsSpecificForTest, isSubClassOfCommonAssertions) {
-    typedef CommonAssertions<DummyType> superClass;
-    typedef AssertionsSpecificFor<DummyType> subClass;
+TYPED_TEST(AssertionsSpecificForTest, isSubClassOfCommonAssertions) {
+    typedef CommonAssertions<TypeParam> superClass;
+    typedef AssertionsSpecificFor<TypeParam> subClass;
 
     EXPECT_TRUE((std::is_base_of<superClass, subClass>::value));
 }
