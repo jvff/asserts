@@ -3,6 +3,7 @@
 
 #include "gtest/gtest.h"
 
+#include "AssertionTester.hpp"
 #include "FailureMessage.hpp"
 #include "Of.hpp"
 #include "TypeOf.hpp"
@@ -41,7 +42,7 @@
 #define ASSERTION_BODY_WITH_PARAMS_AND_MESSAGE(methodName, testCondition, \
         parameters, ...) \
     void methodName parameters { \
-        CommonAssertions::test(testCondition, __VA_ARGS__); \
+        AssertionTester::test(testCondition, __VA_ARGS__); \
     }
 
 #define FAILURE_MESSAGE_FOR(MethodName) \
