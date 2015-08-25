@@ -5,75 +5,28 @@
 
 #include "gtest/gtest.h"
 
-#include "ExpressionIterator.hpp"
-#include "CustomParameterizedTestFactory.hpp"
+#include "CustomParameterizedTestRegistration.hpp"
 #include "VoidValueAssertionTest.hpp"
 
 namespace testing {
 namespace internal {
 
 template <template <typename, bool> class FixtureClassTemplate,
-        template <typename> class TestClassTemplate, bool shouldSucceed,
-        typename... Tail>
+        template <typename> class TestClassTemplate, bool shouldSucceed>
 class ValueAssertionTestRegistration {
 private:
-    static bool Register(const std::string&, const std::string&,
-            ExpressionIterator&, const Tail&... parameters);
-};
+    template <typename T>
+    using FixtureClassTemplateWrapper = FixtureClassTemplate<T, shouldSucceed>;
 
-template <template <typename, bool> class FixtureClassTemplate,
-        template <typename> class TestClassTemplate, bool shouldSucceed,
-        typename ParameterType, typename... Tail>
-class ValueAssertionTestRegistration<FixtureClassTemplate, TestClassTemplate,
-        shouldSucceed, ParameterType, Tail...> {
-private:
-    typedef TestClassTemplate<ParameterType> TestClass;
-    typedef FixtureClassTemplate<ParameterType, shouldSucceed> FixtureClass;
-    typedef CustomParameterizedTestFactory<TestClass, ParameterType>
-            TestFactory;
-
-public:
-    static bool Register(const std::string& testCaseName,
-            const std::string& testName, ExpressionIterator& parameterNames,
-            const ParameterType& parameter, const Tail&... parameters) {
-        GTEST_CHECK_(parameterNames.hasMore()) << "Parameter list parse error";
-
-        std::string parameterName = *parameterNames;
-        std::string currentTestCaseName = testCaseName + "." + parameterName;
-
-        MakeAndRegisterTestInfo(currentTestCaseName.c_str(), testName.c_str(),
-                NULL, NULL, GetTypeId<FixtureClass>(), TestClass::SetUpTestCase,
-                TestClass::TearDownTestCase, new TestFactory(parameter));
-
-        ++parameterNames;
-
-        return ValueAssertionTestRegistration<FixtureClassTemplate,
-                TestClassTemplate, shouldSucceed, Tail...>
-                    ::Register(testCaseName, testName, parameterNames,
-                            parameters...);
-    }
-};
-
-template <template <typename, bool> class FixtureClassTemplate,
-        template <typename> class TestClassTemplate, bool shouldSucceed>
-class ValueAssertionTestRegistration<FixtureClassTemplate, TestClassTemplate,
-        shouldSucceed> {
 public:
     template <typename... ParameterTypes>
     static bool Register(const std::string& testCaseName,
             const std::string& testName, const std::string& parameterNames,
             const ParameterTypes&... parameters) {
-        ExpressionIterator parameterNamesIterator(parameterNames);
-
-        return ValueAssertionTestRegistration<FixtureClassTemplate,
-                TestClassTemplate, shouldSucceed, ParameterTypes...>
-                    ::Register(testCaseName, testName, parameterNamesIterator,
+        return CustomParameterizedTestRegistration<FixtureClassTemplateWrapper,
+                TestClassTemplate>
+                    ::Register(testCaseName, testName, parameterNames,
                             parameters...);
-    }
-
-    static bool Register(const std::string&, const std::string&,
-            ExpressionIterator&) {
-        return true;
     }
 };
 
