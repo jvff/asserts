@@ -1,13 +1,41 @@
-#include <type_traits>
+#include "AssertionTesterTest.hpp"
 
-#include "gtest/gtest.h"
-
-#include "AssertionTester.hpp"
-
-TEST(AssertionTesterTest, classExists) {
+TEST_F(AssertionTesterTest, classExists) {
     EXPECT_TRUE((std::is_class<AssertionTester>::value));
 }
 
-TEST(AssertionTesterTest, isNotConstructible) {
+TEST_F(AssertionTesterTest, isNotConstructible) {
     EXPECT_FALSE((std::is_constructible<AssertionTester>::value));
+}
+
+TEST_F(AssertionTesterTest, testMethodSucceeds) {
+    AssertionTester::test(true, "");
+
+    shouldSucceed();
+}
+
+TEST_F(AssertionTesterTest, testMethodFails) {
+    AssertionTester::test(false, "Fake test failure message");
+
+    shouldFail("Fake test failure message");
+}
+
+TEST_F(AssertionTesterTest, testMethodFailsWithParameter) {
+    int parameter = 86;
+    const std::string message = "Fake test failure message with parameter (%s)";
+
+    AssertionTester::test(false, message, parameter);
+
+    shouldFail("Fake test failure message with parameter (86)");
+}
+
+TEST_F(AssertionTesterTest, testMethodFailsWithParameters) {
+    int firstParameter = 86;
+    char secondParameter = 'a';
+    const std::string message =
+            "Fake test failure message with parameter (%s, %s)";
+
+    AssertionTester::test(false, message, firstParameter, secondParameter);
+
+    shouldFail("Fake test failure message with parameter (86, a)");
 }
