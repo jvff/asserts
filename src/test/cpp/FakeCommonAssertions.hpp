@@ -6,8 +6,6 @@
 #include "CommonAssertions.hpp"
 
 class FakeCommonAssertions : public CommonAssertions {
-public:
-    using CommonAssertions::test;
 };
 
 #endif
