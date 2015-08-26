@@ -22,7 +22,8 @@ public:
     const T& subject;
 
 public:
-    AssertThat(const T& reference) : subject(reference) {
+    AssertThat(const T& reference) : AssertionsSpecificFor<T>(reference),
+            subject(reference) {
     }
 
     AssertThat(AssertThat<T>&) = delete;

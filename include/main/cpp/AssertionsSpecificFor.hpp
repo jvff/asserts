@@ -7,9 +7,6 @@
 template <typename T>
 class AssertionsSpecificFor : public CommonAssertions<T> {
 public:
-    AssertionsSpecificFor() {
-    }
-
     AssertionsSpecificFor(const T&) {
     }
 };
@@ -21,9 +18,6 @@ private:
     using SubjectType = ReturnType (ClassType::*)(ParameterTypes...);
 
 public:
-    AssertionsSpecificFor() {
-    }
-
     AssertionsSpecificFor(const SubjectType&) {
     }
 
@@ -39,9 +33,6 @@ private:
     using SubjectType = ReturnType (ClassType::*)(ParameterTypes...) const;
 
 public:
-    AssertionsSpecificFor() {
-    }
-
     AssertionsSpecificFor(const SubjectType&) {
     }
 
