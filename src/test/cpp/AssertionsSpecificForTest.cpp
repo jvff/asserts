@@ -13,3 +13,9 @@ TEST_CP(AssertionsSpecificForTest, isSubClassOfCommonAssertions) {
 
     EXPECT_TRUE((std::is_base_of<superClass, subClass>::value));
 }
+
+TEST_CP(AssertionsSpecificForTest, isConstructibleWithParameter) {
+    using ClassType = AssertionsSpecificFor<ParamType>;
+
+    EXPECT_TRUE((std::is_constructible<ClassType, ParamType>::value));
+}
