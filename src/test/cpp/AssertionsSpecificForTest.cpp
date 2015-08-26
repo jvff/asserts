@@ -25,3 +25,10 @@ TEST_CP(AssertionsSpecificForTest, isntConstructibleWithoutParameters) {
 
     EXPECT_FALSE((std::is_constructible<ClassType>::value));
 }
+
+TEST_CP(AssertionsSpecificForTest, hasSubject) {
+    const ParamType& subject = parameter;
+    FakeAssertionsSpecificFor<ParamType> assertionsFor(subject);
+
+    EXPECT_EQ(&subject, &assertionsFor.getSubject());
+}

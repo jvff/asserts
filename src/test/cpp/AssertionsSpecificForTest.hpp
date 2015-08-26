@@ -9,6 +9,7 @@
 
 #include "CustomParameterizedTestMacros.hpp"
 #include "DummyTypes.hpp"
+#include "FakeAssertionsSpecificFor.hpp"
 
 template <typename T>
 class AssertionsSpecificForTest : public testing::Test {
