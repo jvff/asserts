@@ -38,3 +38,11 @@ TEST_CP(AssertionsSpecificForTest, hasSubject) {
 
     EXPECT_EQ(&subject, &assertionsFor.getSubject());
 }
+
+TEST_CP(AssertionsSpecificForTest, copyConstructorPreservesSubjectReference) {
+    const ParamType& subject = parameter;
+    AssertionsSpecificFor<ParamType> original(subject);
+    FakeAssertionsSpecificFor<ParamType> copy(original);
+
+    EXPECT_EQ(&subject, &copy.getSubject());
+}

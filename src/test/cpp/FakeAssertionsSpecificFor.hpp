@@ -10,6 +10,10 @@ public:
             : AssertionsSpecificFor<T>(testSubject) {
     }
 
+    FakeAssertionsSpecificFor(const AssertionsSpecificFor<T>& objectToCopy)
+            : AssertionsSpecificFor<T>(objectToCopy) {
+    }
+
     const T& getSubject() {
         return this->subject;
     }
