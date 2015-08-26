@@ -10,7 +10,8 @@ protected:
     const T& subject;
 
 public:
-    AssertionsSpecificFor(const T& testSubject) : subject(testSubject) {
+    AssertionsSpecificFor(const T& testSubject)
+            : CommonAssertions<T>(testSubject), subject(testSubject) {
     }
 };
 
@@ -25,7 +26,7 @@ protected:
 
 public:
     AssertionsSpecificFor(const SubjectType& testSubject)
-            : subject(testSubject) {
+            : CommonAssertions<SubjectType>(testSubject), subject(testSubject) {
     }
 
     ASSERTION(isConstMethod, false)
@@ -44,7 +45,7 @@ protected:
 
 public:
     AssertionsSpecificFor(const SubjectType& testSubject)
-            : subject(testSubject) {
+            : CommonAssertions<SubjectType>(testSubject), subject(testSubject) {
     }
 
     ASSERTION(isConstMethod, true)

@@ -6,6 +6,9 @@
 template <typename T>
 class CommonAssertions {
 public:
+    CommonAssertions(const T&) {
+    }
+
     ASSERTION(isMethod, false)
 };
 
