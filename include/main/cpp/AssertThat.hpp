@@ -26,7 +26,11 @@ public:
             subject(reference) {
     }
 
-    AssertThat(AssertThat<T>&) = delete;
+    AssertThat(const AssertThat<T>& objectToCopy)
+            : AssertionsSpecificFor<T>(objectToCopy),
+            subject(objectToCopy.subject) {
+    }
+
     AssertThat(AssertThat<T>&&) = delete;
 
     ASSERTION(isNotNull, subject != NULL)
