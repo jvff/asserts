@@ -14,7 +14,7 @@ public:
     CommonAssertions(const T& testSubject) : subject(testSubject) {
     }
 
-    ASSERTION(isConstMethod, false, noMessageParameters)
+    ASSERTION(isConstMethod, false, subject)
 };
 
 #endif

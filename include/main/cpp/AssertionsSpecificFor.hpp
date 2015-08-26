@@ -19,14 +19,14 @@ private:
     using SubjectType = ReturnType (ClassType::*)(ParameterTypes...);
 
 protected:
-    using CommonAssertions<SubjectType>::noMessageParameters;
+    using CommonAssertions<SubjectType>::subject;
 
 public:
     AssertionsSpecificFor(const SubjectType& testSubject)
             : CommonAssertions<SubjectType>(testSubject) {
     }
 
-    ASSERTION(isConstMethod, false, noMessageParameters)
+    ASSERTION(isConstMethod, false, subject)
 };
 
 template <typename ClassType, typename ReturnType, typename... ParameterTypes>
