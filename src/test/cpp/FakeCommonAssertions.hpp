@@ -7,6 +7,13 @@
 
 template <typename T>
 class FakeCommonAssertions : public CommonAssertions<T> {
+public:
+    FakeCommonAssertions(const T& subject) : CommonAssertions<T>(subject) {
+    }
+
+    const T& getSubject() {
+        return this->subject;
+    }
 };
 
 #endif

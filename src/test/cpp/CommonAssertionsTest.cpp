@@ -14,3 +14,10 @@ TEST_F(CommonAssertionsTest, hasConstructorWithParameter) {
 
     EXPECT_TRUE((std::is_constructible<ClassType, Parameter>::value));
 }
+
+TEST_F(CommonAssertionsTest, subjectIsProperlySet) {
+    const DummyType subject;
+    FakeCommonAssertions<DummyType> assertion(subject);
+
+    EXPECT_EQ(&subject, &assertion.getSubject());
+}
