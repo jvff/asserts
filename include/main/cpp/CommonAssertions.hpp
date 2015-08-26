@@ -13,8 +13,6 @@ protected:
 public:
     CommonAssertions(const T& testSubject) : subject(testSubject) {
     }
-
-    ASSERTION(isMethod, false, subject)
 };
 
 #endif

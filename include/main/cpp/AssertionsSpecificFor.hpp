@@ -27,7 +27,6 @@ public:
     }
 
     ASSERTION(isConstMethod, false, noMessageParameters)
-    ASSERTION(isMethod, true, noMessageParameters)
 };
 
 template <typename ClassType, typename ReturnType, typename... ParameterTypes>
@@ -46,7 +45,6 @@ public:
     }
 
     ASSERTION(isConstMethod, true, noMessageParameters)
-    ASSERTION(isMethod, true, noMessageParameters)
 };
 
 #endif
