@@ -13,23 +13,6 @@ public:
 };
 
 template <typename ClassType, typename ReturnType, typename... ParameterTypes>
-class AssertionsSpecificFor<ReturnType(ClassType::*)(ParameterTypes...)> :
-        public CommonAssertions<ReturnType(ClassType::*)(ParameterTypes...)> {
-private:
-    using SubjectType = ReturnType (ClassType::*)(ParameterTypes...);
-
-protected:
-    using CommonAssertions<SubjectType>::subject;
-
-public:
-    AssertionsSpecificFor(const SubjectType& testSubject)
-            : CommonAssertions<SubjectType>(testSubject) {
-    }
-
-    ASSERTION(isConstMethod, false, subject)
-};
-
-template <typename ClassType, typename ReturnType, typename... ParameterTypes>
 class AssertionsSpecificFor<ReturnType(ClassType::*)(ParameterTypes...) const> :
         public CommonAssertions<
                 ReturnType(ClassType::*)(ParameterTypes...) const> {
