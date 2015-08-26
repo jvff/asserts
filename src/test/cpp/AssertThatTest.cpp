@@ -40,6 +40,14 @@ TEST(AssertThatTest, subjectIsProperlySet) {
     EXPECT_EQ(&subject, &assertion.subject);
 }
 
+TEST(AssertThatTest, subjectIsPreservedByCopyConstructor) {
+    const DummyType subject;
+    AssertThat<DummyType> original(subject);
+    AssertThat<DummyType> copy(original);
+
+    EXPECT_EQ(&subject, &copy.subject);
+}
+
 TEST(AssertThatTest, auxiliaryFunctionExists) {
     const DummyType parameter;
     const DummyType& parameterReference = parameter;
