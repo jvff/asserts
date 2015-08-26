@@ -3,6 +3,7 @@
 #include "asserts.hpp"
 
 #include "DummyTypes.hpp"
+#include "FakeAssertThat.hpp"
 
 TEST(AssertThatTest, classExists) {
     EXPECT_TRUE((std::is_class<AssertThat<DummyType> >::value));
@@ -35,17 +36,17 @@ TEST(AssertThatTest, hasNoOtherConstructor) {
 
 TEST(AssertThatTest, subjectIsProperlySet) {
     const DummyType subject;
-    AssertThat<DummyType> assertion(subject);
+    FakeAssertThat<DummyType> assertion(subject);
 
-    EXPECT_EQ(&subject, &assertion.subject);
+    EXPECT_EQ(&subject, &assertion.getSubject());
 }
 
 TEST(AssertThatTest, subjectIsPreservedByCopyConstructor) {
     const DummyType subject;
     AssertThat<DummyType> original(subject);
-    AssertThat<DummyType> copy(original);
+    FakeAssertThat<DummyType> copy(original);
 
-    EXPECT_EQ(&subject, &copy.subject);
+    EXPECT_EQ(&subject, &copy.getSubject());
 }
 
 TEST(AssertThatTest, auxiliaryFunctionExists) {
@@ -61,6 +62,7 @@ TEST(AssertThatTest, auxiliaryFunctionExists) {
 TEST(AssertThatTest, subjectIsProperlySetByHelperFunction) {
     const DummyType subject;
     const auto& assertion = assertThat(subject);
+    FakeAssertThat<DummyType> fakeAssertion(assertion);
 
-    EXPECT_EQ(&subject, &assertion.subject);
+    EXPECT_EQ(&subject, &fakeAssertion.getSubject());
 }
