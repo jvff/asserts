@@ -6,6 +6,9 @@
 
 template<typename T>
 class AssertThat : public AssertionsSpecificFor<T> {
+protected:
+    using AssertionsSpecificFor<T>::subject;
+
 public:
     TYPE_ASSERTION(hasVirtualDestructor, std::has_virtual_destructor<T>::value)
     TYPE_ASSERTION(isAbstractClassOrStruct, std::is_abstract<T>::value)
@@ -19,16 +22,11 @@ public:
             std::is_constructible<T, Params...>::value)
 
 public:
-    const T& subject;
-
-public:
-    AssertThat(const T& reference) : AssertionsSpecificFor<T>(reference),
-            subject(reference) {
+    AssertThat(const T& reference) : AssertionsSpecificFor<T>(reference) {
     }
 
     AssertThat(const AssertThat<T>& objectToCopy)
-            : AssertionsSpecificFor<T>(objectToCopy),
-            subject(objectToCopy.subject) {
+            : AssertionsSpecificFor<T>(objectToCopy) {
     }
 
     AssertThat(AssertThat<T>&&) = delete;
