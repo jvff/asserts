@@ -39,3 +39,12 @@ TEST_F(AssertionTesterTest, testMethodFailsWithParameters) {
 
     shouldFail("Fake test failure message with parameter (86, a)");
 }
+
+TEST_F(AssertionTesterTest, testMethodFailsWithInvalidParameter) {
+    const std::string message = "Fake test failure message without parameters";
+    AssertionTester::InvalidParameter invalidParameter;
+
+    AssertionTester::test(false, message, invalidParameter);
+
+    shouldFail(message);
+}
