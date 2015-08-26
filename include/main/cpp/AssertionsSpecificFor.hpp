@@ -6,12 +6,9 @@
 
 template <typename T>
 class AssertionsSpecificFor : public CommonAssertions<T> {
-protected:
-    const T& subject;
-
 public:
     AssertionsSpecificFor(const T& testSubject)
-            : CommonAssertions<T>(testSubject), subject(testSubject) {
+            : CommonAssertions<T>(testSubject) {
     }
 };
 
@@ -21,12 +18,9 @@ class AssertionsSpecificFor<ReturnType(ClassType::*)(ParameterTypes...)> :
 private:
     using SubjectType = ReturnType (ClassType::*)(ParameterTypes...);
 
-protected:
-    const SubjectType& subject;
-
 public:
     AssertionsSpecificFor(const SubjectType& testSubject)
-            : CommonAssertions<SubjectType>(testSubject), subject(testSubject) {
+            : CommonAssertions<SubjectType>(testSubject) {
     }
 
     ASSERTION(isConstMethod, false)
@@ -40,12 +34,9 @@ class AssertionsSpecificFor<ReturnType(ClassType::*)(ParameterTypes...) const> :
 private:
     using SubjectType = ReturnType (ClassType::*)(ParameterTypes...) const;
 
-protected:
-    const SubjectType& subject;
-
 public:
     AssertionsSpecificFor(const SubjectType& testSubject)
-            : CommonAssertions<SubjectType>(testSubject), subject(testSubject) {
+            : CommonAssertions<SubjectType>(testSubject) {
     }
 
     ASSERTION(isConstMethod, true)
