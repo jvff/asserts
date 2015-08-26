@@ -13,6 +13,8 @@ protected:
 public:
     CommonAssertions(const T& testSubject) : subject(testSubject) {
     }
+
+    ASSERTION(isConstMethod, false, noMessageParameters)
 };
 
 #endif
