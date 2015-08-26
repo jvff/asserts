@@ -7,6 +7,7 @@
 
 #include "AssertionsSpecificFor.hpp"
 
+#include "CustomParameterizedTestMacros.hpp"
 #include "DummyTypes.hpp"
 
 template <typename T>
