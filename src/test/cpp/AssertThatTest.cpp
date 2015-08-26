@@ -22,11 +22,14 @@ TEST(AssertThatTest, hasConstructorWithParameter) {
     EXPECT_TRUE((std::is_constructible<type, parameter>::value));
 }
 
+TEST(AssertThatTest, hasCopyConstructor) {
+    EXPECT_TRUE((std::is_copy_constructible<AssertThat<DummyType> >::value));
+}
+
 TEST(AssertThatTest, hasNoOtherConstructor) {
     typedef AssertThat<DummyType> type;
 
     EXPECT_FALSE((std::is_default_constructible<type>::value));
-    EXPECT_FALSE((std::is_copy_constructible<type>::value));
     EXPECT_FALSE((std::is_move_constructible<type>::value));
 }
 
