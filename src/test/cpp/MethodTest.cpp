@@ -10,7 +10,7 @@ VALUE_ASSERTION_TEST_CASE(MethodTest);
 VALUE_ASSERTION_TEST(MethodTest, isMethod) {
     assertThat(parameter).isMethod();
 
-    checkResult("Expected %s to be a method");
+    checkResult("Expected %s to be a method", parameter);
 }
 
 VALUES_SHOULD_SUCCEED(MethodTest, isMethod, constMethod, nonConstMethod);
