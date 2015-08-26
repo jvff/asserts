@@ -10,6 +10,9 @@
 
 class AssertionTester {
 public:
+    struct InvalidParameter {};
+
+public:
     static void test(bool result, const std::string& failureMessage) {
         if (result == true)
             TestReporter::succeed();
@@ -36,6 +39,12 @@ private:
             const ParameterType& messageParameter,
             const ParameterTypes&... messageParameters) {
         fail(failureMessage % format(messageParameter), messageParameters...);
+    }
+
+    template <typename... ParameterTypes>
+    static void fail(boost::format failureMessage, const InvalidParameter&,
+            const ParameterTypes&... messageParameters) {
+        fail(failureMessage, messageParameters...);
     }
 
 private:
