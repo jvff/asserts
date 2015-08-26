@@ -25,9 +25,9 @@
             (const With<Params...>&), \
             FAILURE_MESSAGE_FOR(methodName), TypeOf<T>())
 
-#define ASSERTION(methodName, testCondition) \
+#define ASSERTION(methodName, testCondition, ...) \
     ASSERTION_BODY_WITH_MESSAGE(methodName, testCondition, \
-            FAILURE_MESSAGE_FOR(methodName))
+            FAILURE_MESSAGE_FOR(methodName), __VA_ARGS__)
 
 #define ASSERTION_WITH_PARAM(methodName, testCondition, ...) \
     template <typename T2> \

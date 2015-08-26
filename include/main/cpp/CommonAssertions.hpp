@@ -8,11 +8,13 @@ class CommonAssertions {
 protected:
     const T& subject;
 
+    AssertionTester::InvalidParameter noMessageParameters;
+
 public:
     CommonAssertions(const T& testSubject) : subject(testSubject) {
     }
 
-    ASSERTION(isMethod, false)
+    ASSERTION(isMethod, false, subject)
 };
 
 #endif

@@ -8,6 +8,7 @@ template<typename T>
 class AssertThat : public AssertionsSpecificFor<T> {
 protected:
     using AssertionsSpecificFor<T>::subject;
+    using CommonAssertions<T>::noMessageParameters;
 
 public:
     TYPE_ASSERTION(hasVirtualDestructor, std::has_virtual_destructor<T>::value)
@@ -31,8 +32,8 @@ public:
 
     AssertThat(AssertThat<T>&&) = delete;
 
-    ASSERTION(isNotNull, subject != NULL)
-    ASSERTION(isNull, subject == NULL)
+    ASSERTION(isNotNull, subject != NULL, noMessageParameters)
+    ASSERTION(isNull, subject == NULL, noMessageParameters)
 
     ASSERTION_WITH_PARAM(isEqualTo, subject == parameter, parameter, subject)
     ASSERTION_WITH_PARAM(isNotEqualTo, !(subject == parameter), parameter,
