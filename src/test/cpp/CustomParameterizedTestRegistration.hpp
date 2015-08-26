@@ -30,7 +30,7 @@ public:
     template <typename... ParameterTypes>
     static bool Register(const std::string& testCaseName,
             const std::string& testName, const std::string& parameterNames,
-            const std::tuple<const ParameterTypes&...>& parameters) {
+            const std::tuple<ParameterTypes...>& parameters) {
         using Registrator = CustomParameterizedTestRegistrator<
                 FixtureClassTemplate, TestClassTemplate, ParameterTypes...>;
 
