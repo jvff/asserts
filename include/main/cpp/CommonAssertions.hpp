@@ -5,8 +5,11 @@
 
 template <typename T>
 class CommonAssertions {
+protected:
+    const T& subject;
+
 public:
-    CommonAssertions(const T&) {
+    CommonAssertions(const T& testSubject) : subject(testSubject) {
     }
 
     ASSERTION(isMethod, false)
