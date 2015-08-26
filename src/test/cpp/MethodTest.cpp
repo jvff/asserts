@@ -19,7 +19,7 @@ VALUES_SHOULD_FAIL(MethodTest, isMethod, dummyObject);
 VALUE_ASSERTION_TEST(MethodTest, isConstMethod) {
     assertThat(parameter).isConstMethod();
 
-    checkResult("Expected method to be const qualified");
+    checkResult("Expected %s to be a const qualified method", parameter);
 }
 
 VALUES_SHOULD_SUCCEED(MethodTest, isConstMethod, constMethod);
