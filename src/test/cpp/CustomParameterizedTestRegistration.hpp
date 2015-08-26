@@ -2,6 +2,8 @@
 #define CUSTOM_PARAMETERIZED_TEST_REGISTRATION_HPP
 
 #include <string>
+#include <tuple>
+#include <type_traits>
 
 #include "gtest/gtest.h"
 
@@ -12,66 +14,83 @@ namespace testing {
 namespace internal {
 
 template <template <typename> class FixtureClassTemplate,
-        template <typename> class TestClassTemplate, typename... Tail>
-class CustomParameterizedTestRegistration {
-private:
-    static bool Register(const std::string&, const std::string&,
-            ExpressionIterator&, const Tail&... parameters);
-};
-
-template <template <typename> class FixtureClassTemplate,
-        template <typename> class TestClassTemplate, typename ParameterType,
-        typename... Tail>
-class CustomParameterizedTestRegistration<FixtureClassTemplate,
-        TestClassTemplate, ParameterType, Tail...> {
-private:
-    typedef TestClassTemplate<ParameterType> TestClass;
-    typedef FixtureClassTemplate<ParameterType> FixtureClass;
-    typedef CustomParameterizedTestFactory<TestClass, ParameterType>
-            TestFactory;
-
-public:
-    static bool Register(const std::string& testCaseName,
-            const std::string& testName, ExpressionIterator& parameterNames,
-            const ParameterType& parameter, const Tail&... parameters) {
-        GTEST_CHECK_(parameterNames.hasMore()) << "Parameter list parse error";
-
-        std::string parameterName = *parameterNames;
-        std::string currentTestCaseName = testCaseName + "." + parameterName;
-
-        MakeAndRegisterTestInfo(currentTestCaseName.c_str(), testName.c_str(),
-                NULL, NULL, GetTypeId<FixtureClass>(), TestClass::SetUpTestCase,
-                TestClass::TearDownTestCase, new TestFactory(parameter));
-
-        ++parameterNames;
-
-        return CustomParameterizedTestRegistration<FixtureClassTemplate,
-                TestClassTemplate, Tail...>
-                    ::Register(testCaseName, testName, parameterNames,
-                            parameters...);
-    }
-};
-
-template <template <typename> class FixtureClassTemplate,
         template <typename> class TestClassTemplate>
-class CustomParameterizedTestRegistration<FixtureClassTemplate,
-        TestClassTemplate> {
+class CustomParameterizedTestRegistration {
 public:
     template <typename... ParameterTypes>
     static bool Register(const std::string& testCaseName,
             const std::string& testName, const std::string& parameterNames,
             const ParameterTypes&... parameters) {
-        ExpressionIterator parameterNamesIterator(parameterNames);
+        auto parameterTuple = std::tie(parameters...);
 
-        return CustomParameterizedTestRegistration<FixtureClassTemplate,
-                TestClassTemplate, ParameterTypes...>
-                    ::Register(testCaseName, testName, parameterNamesIterator,
-                            parameters...);
+        return Register(testCaseName, testName, parameterNames, parameterTuple);
     }
 
-    static bool Register(const std::string&, const std::string&,
-            ExpressionIterator&) {
+    template <typename... ParameterTypes>
+    static bool Register(const std::string& testCaseName,
+            const std::string& testName, const std::string& parameterNames,
+            const std::tuple<const ParameterTypes&...>& parameters) {
+        using ParameterTuple = std::tuple<const ParameterTypes&...>;
+
+        constexpr auto numParameters = std::tuple_size<ParameterTuple>::value;
+        ExpressionIterator parameterNamesIterator(parameterNames);
+
+        registerForParameterIndex<ParameterTuple, 0, numParameters>(
+                testCaseName, testName, parameterNamesIterator, parameters);
+
         return true;
+    }
+
+private:
+    template <typename ParameterTuple, int ParameterIndex, int NumParameters>
+    static typename std::enable_if<ParameterIndex < NumParameters>::type
+            registerForParameterIndex(const std::string& testCaseName,
+                    const std::string& testName,
+                    ExpressionIterator& parameterNames,
+                    const ParameterTuple& parameters) {
+        const auto& parameter = std::get<ParameterIndex>(parameters);
+
+        registerForParameter(testCaseName, testName, parameterNames,
+                parameter);
+
+        registerForParameterIndex<ParameterTuple, ParameterIndex + 1,
+                NumParameters>(testCaseName, testName, parameterNames,
+                        parameters);
+    }
+
+    template <typename ParameterTuple, int ParameterIndex, int NumParameters>
+    static typename std::enable_if<ParameterIndex == NumParameters>::type
+            registerForParameterIndex(const std::string&, const std::string&,
+                    ExpressionIterator&, const ParameterTuple&) {
+    }
+
+    template <typename ParameterType>
+    static void registerForParameter(const std::string& testCaseName,
+            const std::string& testName, ExpressionIterator& parameterNames,
+            const ParameterType& parameter) {
+        GTEST_CHECK_(parameterNames.hasMore()) << "Parameter list parse error";
+
+        const auto parameterName = *parameterNames;
+
+        registerForParameter(testCaseName, testName, parameterName, parameter);
+
+        ++parameterNames;
+    }
+
+    template <typename ParameterType>
+    static void registerForParameter(const std::string& testCaseName,
+            const std::string& testName, const std::string& parameterName,
+            const ParameterType& parameter) {
+        using FixtureClass = FixtureClassTemplate<ParameterType>;
+        using TestClass = TestClassTemplate<ParameterType>;
+        using TestFactory = CustomParameterizedTestFactory<TestClass,
+                ParameterType>;
+
+        std::string currentTestCaseName = testCaseName + "." + parameterName;
+
+        MakeAndRegisterTestInfo(currentTestCaseName.c_str(), testName.c_str(),
+                NULL, NULL, GetTypeId<FixtureClass>(), TestClass::SetUpTestCase,
+                TestClass::TearDownTestCase, new TestFactory(parameter));
     }
 };
 
