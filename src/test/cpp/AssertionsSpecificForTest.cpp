@@ -19,3 +19,9 @@ TEST_CP(AssertionsSpecificForTest, isConstructibleWithParameter) {
 
     EXPECT_TRUE((std::is_constructible<ClassType, ParamType>::value));
 }
+
+TEST_CP(AssertionsSpecificForTest, isntConstructibleWithoutParameters) {
+    using ClassType = AssertionsSpecificFor<ParamType>;
+
+    EXPECT_FALSE((std::is_constructible<ClassType>::value));
+}
