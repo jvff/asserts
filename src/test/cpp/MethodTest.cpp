@@ -23,4 +23,4 @@ VALUE_ASSERTION_TEST(MethodTest, isConstMethod) {
 }
 
 VALUES_SHOULD_SUCCEED(MethodTest, isConstMethod, constMethod);
-VALUES_SHOULD_FAIL(MethodTest, isConstMethod, nonConstMethod);
+VALUES_SHOULD_FAIL(MethodTest, isConstMethod, nonConstMethod, dummyObject);
