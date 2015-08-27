@@ -1,5 +1,4 @@
 #include "MethodTest.hpp"
-#include "ValueAssertionMacros.hpp"
 
 static auto constMethod = &DummyClass::constMethod;
 static auto nonConstMethod = &DummyClass::nonConstMethod;

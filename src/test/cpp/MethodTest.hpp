@@ -3,7 +3,7 @@
 
 #include "gtest/gtest.h"
 
-#include "WithSignature.hpp"
+#include "ValueAssertionMacros.hpp"
 
 class DummyClass {
 public:
