@@ -3,6 +3,8 @@
 
 template <typename T>
 class WithSignature {
+public:
+    using Signature = T;
 };
 
 #endif
