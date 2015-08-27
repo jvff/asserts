@@ -27,8 +27,10 @@ public:
             : CommonAssertions<SubjectType>(testSubject) {
     }
 
-    ASSERTION_WITH_PARAM(isMethod,
-            (std::is_same<Signature, typename T2::Signature>::value), parameter)
+    ASSERTION_WITH_TYPE_PARAM(isMethod,
+            (std::is_same<Signature, typename TypeParam::Signature>::value),
+            subject, " with signature ",
+            TypeOf<typename TypeParam::Signature>())
 };
 
 template <typename ClassType, typename ReturnType, typename... ParameterTypes>
@@ -49,8 +51,10 @@ public:
 
     ASSERTION(isConstMethod, true, subject)
 
-    ASSERTION_WITH_PARAM(isMethod,
-            (std::is_same<Signature, typename T2::Signature>::value), parameter)
+    ASSERTION_WITH_TYPE_PARAM(isMethod,
+            (std::is_same<Signature, typename TypeParam::Signature>::value),
+            subject, " with signature ",
+            TypeOf<typename TypeParam::Signature>())
 };
 
 #endif

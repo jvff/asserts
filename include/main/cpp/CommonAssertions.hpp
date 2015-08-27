@@ -16,7 +16,8 @@ public:
 
     ASSERTION(isConstMethod, false, subject)
 
-    ASSERTION_WITH_PARAM(isMethod, false, parameter)
+    ASSERTION_WITH_TYPE_PARAM(isMethod, false, subject, " with signature ",
+            TypeOf<typename TypeParam::Signature>())
 };
 
 #endif

@@ -35,7 +35,8 @@ public:
     ASSERTION(isNotNull, subject != NULL, noMessageParameters)
     ASSERTION(isNull, subject == NULL, noMessageParameters)
 
-    ASSERTION(isMethod, std::is_member_function_pointer<T>::value, subject)
+    ASSERTION(isMethod, std::is_member_function_pointer<T>::value, subject, "",
+            "")
 
     ASSERTION_WITH_PARAM(isEqualTo, subject == parameter, parameter, subject)
     ASSERTION_WITH_PARAM(isNotEqualTo, !(subject == parameter), parameter,
