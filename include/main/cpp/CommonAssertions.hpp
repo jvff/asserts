@@ -15,6 +15,8 @@ public:
     }
 
     ASSERTION(isConstMethod, false, subject)
+
+    ASSERTION_WITH_PARAM(isMethod, false, parameter)
 };
 
 #endif

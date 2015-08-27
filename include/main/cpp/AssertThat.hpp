@@ -45,6 +45,8 @@ public:
             parameter)
     ASSERTION_WITH_PARAM(isNotAtSameAddressAs, &subject != &parameter, subject,
             parameter)
+
+    using AssertionsSpecificFor<T>::isMethod;
 };
 
 #endif
