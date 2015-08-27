@@ -8,10 +8,10 @@
 class CommonAssertions {
 protected:
     static void test(bool result, const std::string& failureMessage) {
-	if (result == true)
-	    TestReporter::succeed();
-	else
-	    TestReporter::fail(failureMessage);
+        if (result == true)
+            TestReporter::succeed();
+        else
+            TestReporter::fail(failureMessage);
     }
 };
 

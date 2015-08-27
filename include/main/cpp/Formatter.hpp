@@ -9,11 +9,11 @@ class Formatter;
 
 template <typename T>
 typename std::enable_if<IsPrintable<T>::value, std::ostream&>::type
-	operator<<(std::ostream&, const Formatter<T>&);
+        operator<<(std::ostream&, const Formatter<T>&);
 
 template <typename T>
 typename std::enable_if<!IsPrintable<T>::value, std::ostream&>::type
-	operator<<(std::ostream&, const Formatter<T>&);
+        operator<<(std::ostream&, const Formatter<T>&);
 
 template <typename T>
 class Formatter {
@@ -46,7 +46,7 @@ public:
 
 template <typename T>
 typename std::enable_if<IsPrintable<T>::value, std::ostream&>::type
-	operator<<(std::ostream& stream, const Formatter<T>& formatter) {
+        operator<<(std::ostream& stream, const Formatter<T>& formatter) {
     stream << formatter.value;
 
     return stream;
@@ -54,7 +54,7 @@ typename std::enable_if<IsPrintable<T>::value, std::ostream&>::type
 
 template <typename T>
 typename std::enable_if<!IsPrintable<T>::value, std::ostream&>::type
-	operator<<(std::ostream& stream, const Formatter<T>& formatter) {
+        operator<<(std::ostream& stream, const Formatter<T>& formatter) {
     stream << "?(" << TypeOf<T>() << "@" << (void*)&formatter.value << ")";
 
     return stream;

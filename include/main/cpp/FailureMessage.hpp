@@ -20,12 +20,12 @@
 #define DEFINE_MESSAGE_TEMPLATE(Message) \
     template <int messageId, int unusedParameter> \
     const std::string FailureMessageTemplate<messageId, unusedParameter> \
-	    ::message = Message
+            ::message = Message
 
 #define DEFINE_MESSAGE(MessageId, Message) \
     template <int unusedParameter> \
     const std::string FailureMessageTemplate<MessageId, unusedParameter> \
-	    ::message = Message
+            ::message = Message
 
 #define MAKE_MESSAGE(MessageId, Message) \
     DEFINE_MESSAGE_ID(MessageId); \

@@ -10,15 +10,15 @@ TYPE_ASSERTION_TEST_T(ConstructibleTest, isConstructibleWith, 1N) {
 }
 
 SHOULD_SUCCEED(ConstructibleTest, isConstructibleWith,
-	Pack<ClassWithDefaultConstructor>,
-	Pack<ClassWithConstructorWithOneIntParameter, int>,
-	Pack<ClassWithConstructorWithIntAndDummyParameter, int, DummyType>);
+        Pack<ClassWithDefaultConstructor>,
+        Pack<ClassWithConstructorWithOneIntParameter, int>,
+        Pack<ClassWithConstructorWithIntAndDummyParameter, int, DummyType>);
 SHOULD_FAIL(ConstructibleTest, isConstructibleWith,
-	Pack<AbstractClassWithDefaultConstructor>,
-	Pack<ClassWithNoConstructor>,
-	Pack<ClassWithDefaultConstructor, int>,
-	Pack<ClassWithDefaultConstructor, DummyType>,
-	Pack<ClassWithConstructorWithOneIntParameter>,
-	Pack<ClassWithConstructorWithOneIntParameter, DummyType>,
-	Pack<ClassWithConstructorWithOneIntParameter, int, int>,
-	Pack<ClassWithConstructorWithIntAndDummyParameter, DummyType, int>);
+        Pack<AbstractClassWithDefaultConstructor>,
+        Pack<ClassWithNoConstructor>,
+        Pack<ClassWithDefaultConstructor, int>,
+        Pack<ClassWithDefaultConstructor, DummyType>,
+        Pack<ClassWithConstructorWithOneIntParameter>,
+        Pack<ClassWithConstructorWithOneIntParameter, DummyType>,
+        Pack<ClassWithConstructorWithOneIntParameter, int, int>,
+        Pack<ClassWithConstructorWithIntAndDummyParameter, DummyType, int>);

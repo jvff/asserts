@@ -8,10 +8,10 @@ TYPE_ASSERTION_TEST(CopyConstructibleTest, isCopyConstructible) {
 }
 
 SHOULD_SUCCEED(CopyConstructibleTest, isCopyConstructible,
-	ClassWithDefaultConstructors,
-	ClassWithDefaultCopyConstructor,
-	ClassWithCustomCopyConstructor);
+        ClassWithDefaultConstructors,
+        ClassWithDefaultCopyConstructor,
+        ClassWithCustomCopyConstructor);
 SHOULD_FAIL(CopyConstructibleTest, isCopyConstructible,
-	ClassWithNoConstructors,
-	ClassWithDeletedCopyConstructor,
-	ClassWithCustomConstructorButNoCopyConstructor);
+        ClassWithNoConstructors,
+        ClassWithDeletedCopyConstructor,
+        ClassWithCustomConstructorButNoCopyConstructor);

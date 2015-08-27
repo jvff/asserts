@@ -12,37 +12,37 @@ class FormatterTest : public testing::Test {
 protected:
     template <typename T>
     std::string streamStringValueOf(const T& value) {
-	std::stringstream stream;
+        std::stringstream stream;
 
-	stream << value;
+        stream << value;
 
-	return stream.str();
+        return stream.str();
     }
 
     template <typename T>
     void testFormatter(const Formatter<T>& formatter,
-	    const std::string& expectedResult) {
-	EXPECT_EQ(expectedResult, streamStringValueOf(formatter));
+            const std::string& expectedResult) {
+        EXPECT_EQ(expectedResult, streamStringValueOf(formatter));
     }
 
     template <typename T>
     void testFormatter(const Formatter<T>& formatter, const T& value) {
-	testFormatter(formatter, streamStringValueOf(value));
+        testFormatter(formatter, streamStringValueOf(value));
     }
 
     template <typename T>
     void testFormatter(const T& value) {
-	testFormatter(Formatter<T>(value), value);
+        testFormatter(Formatter<T>(value), value);
     }
 
     template <typename T>
     void testFormat(const T& value, const std::string& expectedResult) {
-	testFormatter(format(value), expectedResult);
+        testFormatter(format(value), expectedResult);
     }
 
     template <typename T>
     void testFormat(const T& value) {
-	testFormat(format(value), streamStringValueOf(value));
+        testFormat(format(value), streamStringValueOf(value));
     }
 };
 
