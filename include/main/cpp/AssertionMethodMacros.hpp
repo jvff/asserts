@@ -35,6 +35,12 @@
             (const T2& parameter), \
             FAILURE_MESSAGE_FOR(methodName), __VA_ARGS__)
 
+#define ASSERTION_WITH_TYPE_PARAM(methodName, testCondition, ...) \
+    template <typename TypeParam> \
+    ASSERTION_BODY_WITH_PARAMS_AND_MESSAGE(methodName, testCondition, \
+            (const TypeParam&), \
+            FAILURE_MESSAGE_FOR(methodName), __VA_ARGS__)
+
 #define ASSERTION_BODY_WITH_MESSAGE(methodName, testCondition, ...) \
     ASSERTION_BODY_WITH_PARAMS_AND_MESSAGE(methodName, testCondition, (), \
             __VA_ARGS__)
