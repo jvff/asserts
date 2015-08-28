@@ -15,6 +15,8 @@ public:
     TYPE_ASSERTION(isAbstractClassOrStruct, std::is_abstract<T>::value)
     TYPE_ASSERTION(isClassOrStruct, std::is_class<T>::value)
     TYPE_ASSERTION(isCopyConstructible, std::is_copy_constructible<T>::value)
+    TYPE_ASSERTION(isNotCopyConstructible,
+            !std::is_copy_constructible<T>::value)
 
     TYPE_ASSERTION_WITH_PARAM(isSubClass, std::is_base_of<T2, T>::value)
     TYPE_ASSERTION_WITH_PARAM(isTheSame, std::is_same<T, T2>::value)
