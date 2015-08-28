@@ -4,7 +4,7 @@
 #include "gtest/gtest.h"
 
 #include "AbstractValueAssertionTest.hpp"
-#include "OppositeValueAssertionTestTo.hpp"
+#include "OppositeAssertionTestTo.hpp"
 #include "ValueAssertionTestRegistration.hpp"
 
 #define BOOL_VALUE_OF_succeeds true
@@ -91,7 +91,7 @@ void AbstractParent<parameterType, shouldSucceed>::TestBody()
 #define SPECIALIZE_OPPOSITE_VALUE_ASSERTION_TEST(TestCase, AbstractParent, \
         SucceedsClass, FailsClass) \
 template <> \
-struct OppositeValueAssertionTestTo<TestCase, AbstractParent> { \
+struct OppositeAssertionTestTo<TestCase, AbstractParent> { \
     template <typename parameterType> \
     using TestClass_succeeds = SucceedsClass<parameterType>; \
 \
@@ -103,7 +103,7 @@ struct OppositeValueAssertionTestTo<TestCase, AbstractParent> { \
 
 #define DECLARE_OPPOSITE_VALUE_ASSERTION_TEST_NAME(TestCase, OppositeTestName, \
         AbstractParent) \
-const char* OppositeValueAssertionTestTo<TestCase, AbstractParent> \
+const char* OppositeAssertionTestTo<TestCase, AbstractParent> \
         ::TestCaseName = #TestCase "." #OppositeTestName
 
 #define VALUES_SHOULD_SUCCEED(TestCase, TestName, ...) \
@@ -120,7 +120,7 @@ const char* OppositeValueAssertionTestTo<TestCase, AbstractParent> \
             __VA_ARGS__); \
     REGISTER_OPPOSITE_VALUE_ASSERTION_TEST(TestCase, TestName, \
             OppositeTestType, \
-            OppositeValueAssertionTest_##TestCase##_##TestName, __VA_ARGS__)
+            OppositeAssertionTest_##TestCase##_##TestName, __VA_ARGS__)
 
 #define REGISTER_MAIN_VALUE_ASSERTION_TEST(TestCase, TestName, TestType, ...) \
     REGISTER_VALUE_ASSERTION_TEST(TestCase, #TestCase "." #TestName, TestName, \
@@ -137,7 +137,7 @@ const char* OppositeValueAssertionTestTo<TestCase, AbstractParent> \
 
 #define DEFINE_OPPOSITE_VALUE_ASSERTION_TEST_NAME(TestCase, TestName, \
         OppositeTestName) \
-    using OppositeTestName = OppositeValueAssertionTestTo<TestCase, \
+    using OppositeTestName = OppositeAssertionTestTo<TestCase, \
             GTEST_TEST_CLASS_NAME_(TestCase##_##TestName, abstractParent)>
 
 #define REGISTER_VALUE_ASSERTION_TEST(TestCase, TestCaseName, TestName, \

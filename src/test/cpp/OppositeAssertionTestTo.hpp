@@ -1,11 +1,11 @@
-#ifndef OPPOSITE_VALUE_ASSERTION_TEST_TO_HPP
-#define OPPOSITE_VALUE_ASSERTION_TEST_TO_HPP
+#ifndef OPPOSITE_ASSERTION_TEST_TO_HPP
+#define OPPOSITE_ASSERTION_TEST_TO_HPP
 
 #include "VoidAssertionTest.hpp"
 
 template <template <typename, bool> class FixtureClassTemplate,
          template <typename, bool> class TestClassTemplate>
-struct OppositeValueAssertionTestTo {
+struct OppositeAssertionTestTo {
     template <typename parameterType>
     using TestClass_succeeds = VoidAssertionTest<parameterType>;
 
@@ -17,7 +17,7 @@ struct OppositeValueAssertionTestTo {
 
 template <template <typename, bool> class FixtureClassTemplate,
          template <typename, bool> class TestClassTemplate>
-const char OppositeValueAssertionTestTo<FixtureClassTemplate, TestClassTemplate>
+const char OppositeAssertionTestTo<FixtureClassTemplate, TestClassTemplate>
         ::TestCaseName[1] = "";
 
 #endif
