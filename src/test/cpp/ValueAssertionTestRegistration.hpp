@@ -6,7 +6,7 @@
 #include "gtest/gtest.h"
 
 #include "CustomParameterizedTestRegistration.hpp"
-#include "VoidValueAssertionTest.hpp"
+#include "VoidAssertionTest.hpp"
 
 namespace testing {
 namespace internal {
@@ -33,7 +33,7 @@ public:
 template <template <typename, bool> class FixtureClassTemplate,
         bool shouldSucceed>
 class ValueAssertionTestRegistration<FixtureClassTemplate,
-        VoidValueAssertionTest, shouldSucceed> {
+        VoidAssertionTest, shouldSucceed> {
 public:
     template <typename... ParameterTypes>
     static bool Register(const std::string&, const std::string&,
