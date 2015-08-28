@@ -16,20 +16,22 @@ public:
     }
 };
 
+class ClassWithCustomConstructorButNoCopyConstructor {
+public:
+    ClassWithCustomConstructorButNoCopyConstructor() {
+    }
+};
+
 class ClassWithNoConstructors {
     ClassWithNoConstructors() = delete;
+    ClassWithNoConstructors(const ClassWithNoConstructors&) = delete;
+    ClassWithNoConstructors(ClassWithNoConstructors&&) = delete;
 };
 
 class ClassWithDeletedCopyConstructor {
 public:
     ClassWithDeletedCopyConstructor(const ClassWithDeletedCopyConstructor&)
             = delete;
-};
-
-class ClassWithCustomConstructorButNoCopyConstructor {
-public:
-    ClassWithCustomConstructorButNoCopyConstructor() {
-    }
 };
 
 #endif
