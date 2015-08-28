@@ -4,6 +4,7 @@
 #include "gtest/gtest.h"
 
 #include "AbstractTypeAssertionTest.hpp"
+#include "OppositeAssertionTestTo.hpp"
 #include "TypeAssertionTestRegistration.hpp"
 
 #define BOOL_VALUE_OF_succeeds true
@@ -117,18 +118,78 @@ protected: \
 template <TYPENAMES_##NumParams, bool shouldSucceed> \
 void AbstractParent<PACK_##NumParams, shouldSucceed>::TestBody()
 
+#define TYPE_ASSERTION_TESTS_ARE_OPPOSITE(TestCase, NormalTestName, \
+        OppositeTestName) \
+    MAKE_OPPOSITE_TYPE_ASSERTION_TEST(TestCase, OppositeTestName, \
+        GTEST_TEST_CLASS_NAME_(TestCase##_##NormalTestName, abstractParent), \
+        GTEST_TEST_CLASS_NAME_(TestCase##_##OppositeTestName, succeeds), \
+        GTEST_TEST_CLASS_NAME_(TestCase##_##OppositeTestName, fails))
+
+#define MAKE_OPPOSITE_TYPE_ASSERTION_TEST(TestCase, OppositeTestName, \
+        AbstractParent, SucceedsClass, FailsClass) \
+    SPECIALIZE_OPPOSITE_TYPE_ASSERTION_TEST(TestCase, AbstractParent, \
+            SucceedsClass, FailsClass); \
+    DECLARE_OPPOSITE_TYPE_ASSERTION_TEST_NAME(TestCase, OppositeTestName, \
+            AbstractParent)
+
+#define SPECIALIZE_OPPOSITE_TYPE_ASSERTION_TEST(TestCase, AbstractParent, \
+        SucceedsClass, FailsClass) \
+template <> \
+struct OppositeAssertionTestTo<TestCase, AbstractParent> { \
+    template <typename parameterType> \
+    using TestClass_succeeds = SucceedsClass<parameterType>; \
+\
+    template <typename parameterType> \
+    using TestClass_fails = FailsClass<parameterType>; \
+\
+    static const char* TestCaseName; \
+}
+
+#define DECLARE_OPPOSITE_TYPE_ASSERTION_TEST_NAME(TestCase, OppositeTestName, \
+        AbstractParent) \
+const char* OppositeAssertionTestTo<TestCase, AbstractParent> \
+        ::TestCaseName = #TestCase "." #OppositeTestName
+
 #define SHOULD_SUCCEED(TestCase, TestName, ...) \
-    REGISTER_TYPE_ASSERTION_TEST(TestCase, TestName, succeeds, __VA_ARGS__)
+    REGISTER_TYPE_ASSERTION_TESTS(TestCase, TestName, succeeds, fails, \
+            __VA_ARGS__)
 
 #define SHOULD_FAIL(TestCase, TestName, ...) \
-    REGISTER_TYPE_ASSERTION_TEST(TestCase, TestName, fails, __VA_ARGS__)
+    REGISTER_TYPE_ASSERTION_TESTS(TestCase, TestName, fails, succeeds, \
+            __VA_ARGS__)
 
-#define REGISTER_TYPE_ASSERTION_TEST(TestCase, TestName, TestType, ...) \
+#define REGISTER_TYPE_ASSERTION_TESTS(TestCase, TestName, TestType, \
+        OppositeTestType, ...) \
+    REGISTER_MAIN_TYPE_ASSERTION_TEST(TestCase, TestName, TestType, \
+            __VA_ARGS__); \
+    REGISTER_OPPOSITE_TYPE_ASSERTION_TEST(TestCase, TestName, \
+            OppositeTestType, \
+            OppositeAssertionTest_##TestCase##_##TestName, __VA_ARGS__)
+
+#define REGISTER_MAIN_TYPE_ASSERTION_TEST(TestCase, TestName, TestType, ...) \
+    REGISTER_TYPE_ASSERTION_TEST(TestCase, #TestCase "." #TestName, TestName, \
+            GTEST_TEST_CLASS_NAME_(TestCase##_##TestName, TestType), TestType, \
+            __VA_ARGS__)
+
+#define REGISTER_OPPOSITE_TYPE_ASSERTION_TEST(TestCase, TestName, TestType, \
+        OppositeTestName, ...) \
+    DEFINE_OPPOSITE_TYPE_ASSERTION_TEST_NAME(TestCase, TestName, \
+            OppositeTestName); \
+    REGISTER_TYPE_ASSERTION_TEST(TestCase, OppositeTestName::TestCaseName, \
+            TestName##_opposite, OppositeTestName::TestClass_##TestType, \
+            TestType, __VA_ARGS__)
+
+#define DEFINE_OPPOSITE_TYPE_ASSERTION_TEST_NAME(TestCase, TestName, \
+        OppositeTestName) \
+    using OppositeTestName = OppositeAssertionTestTo<TestCase, \
+            GTEST_TEST_CLASS_NAME_(TestCase##_##TestName, abstractParent)>
+
+#define REGISTER_TYPE_ASSERTION_TEST(TestCase, TestCaseName, TestName, \
+        TestClass, TestType, ...) \
     bool gtest_##TestCase##_##TestName##_##TestType##_registered_ \
             GTEST_ATTRIBUTE_UNUSED_ = \
         ::testing::internal::TypeAssertionTestRegistration<TestCase, \
-                GTEST_TEST_CLASS_NAME_(TestCase##_##TestName, TestType), \
-                BOOL_VALUE_OF_##TestType, __VA_ARGS__> \
-                    ::Register(#TestCase "." #TestName, #TestType)
+                TestClass, BOOL_VALUE_OF_##TestType, __VA_ARGS__> \
+                    ::Register(TestCaseName, #TestType)
 
 #endif

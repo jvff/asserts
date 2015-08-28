@@ -5,6 +5,8 @@
 
 #include "gtest/gtest.h"
 
+#include "VoidAssertionTest.hpp"
+
 namespace testing {
 namespace internal {
 
@@ -46,6 +48,16 @@ class TypeAssertionTestRegistration<FixtureClassTemplate, TestClassTemplate,
 public:
     static bool Register(const std::string&, const std::string&) {
         return true;
+    }
+};
+
+template <template <typename, bool> class FixtureClassTemplate,
+        bool shouldSucceed, typename T, typename... Tail>
+class TypeAssertionTestRegistration<FixtureClassTemplate, VoidAssertionTest,
+        shouldSucceed, T, Tail...> {
+public:
+    static bool Register(const std::string&, const std::string&) {
+        return false;
     }
 };
 
