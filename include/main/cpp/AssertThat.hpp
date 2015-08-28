@@ -23,6 +23,8 @@ public:
 
     TYPE_ASSERTION_WITH_PARAMS(isConstructible,
             std::is_constructible<T, Params...>::value)
+    TYPE_ASSERTION_WITH_PARAMS(isNotConstructible,
+            !std::is_constructible<T, Params...>::value)
 
 public:
     AssertThat(const T& reference) : AssertionsSpecificFor<T>(reference) {
