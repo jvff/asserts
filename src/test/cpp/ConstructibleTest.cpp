@@ -9,6 +9,15 @@ TYPE_ASSERTION_TEST_T(ConstructibleTest, isConstructibleWith, 1N) {
     this->checkResult("%s should be constructible");
 }
 
+TYPE_ASSERTION_TEST_T(ConstructibleTest, isNotConstructibleWith, 1N) {
+    AssertThat<TypeParam1>::isNotConstructible(With<TypeParams...>());
+
+    this->checkResult("%s should not be constructible");
+}
+
+TYPE_ASSERTION_TESTS_ARE_OPPOSITE(ConstructibleTest, isConstructibleWith,
+        isNotConstructibleWith);
+
 SHOULD_SUCCEED(ConstructibleTest, isConstructibleWith,
         Pack<ClassWithDefaultConstructor>,
         Pack<ClassWithConstructorWithOneIntParameter, int>,
