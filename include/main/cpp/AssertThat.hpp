@@ -46,6 +46,8 @@ public:
     ASSERTION_WITH_PARAM(isNotEqualTo, !(subject == parameter), parameter,
             subject)
 
+    ASSERTION_WITH_PARAM(isLessThan, subject < parameter, parameter, subject)
+
     ASSERTION_WITH_PARAM(isAtSameAddressAs, &subject == &parameter, subject,
             parameter)
     ASSERTION_WITH_PARAM(isNotAtSameAddressAs, &subject != &parameter, subject,
