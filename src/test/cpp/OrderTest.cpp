@@ -9,6 +9,15 @@ VALUE_ASSERTION_TEST(OrderTest, isLessThan) {
             std::get<1>(parameter), std::get<0>(parameter));
 }
 
+VALUE_ASSERTION_TEST(OrderTest, isNotLessThan) {
+    assertThat(std::get<0>(parameter)).isNotLessThan(std::get<1>(parameter));
+
+    checkResult("Expected something not less than %s, but %s was found",
+            std::get<1>(parameter), std::get<0>(parameter));
+}
+
+VALUE_ASSERTION_TESTS_ARE_OPPOSITE(OrderTest, isLessThan, isNotLessThan);
+
 VALUES_SHOULD_SUCCEED(OrderTest, isLessThan,
         std::make_tuple(0, 1),
         std::make_tuple(-1, 1),
