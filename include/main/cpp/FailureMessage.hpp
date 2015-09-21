@@ -55,6 +55,8 @@ MSG(isEqualTo, "Expected something equal to %s, but %s was found");
 MSG(isLessThan, "Expected something less than %s, but %s was found");
 MSG(isMethod, "Expected %s to be a method%s%s");
 MSG(isNotAtSameAddressAs, "Expected %s to not be at the same address as %s");
+MSG(isNotDifferentThan, "Expected something that's not different than %s, but "
+        "%s was found");
 MSG(isNotEqualTo, "Expected something not equal to %s, but %s was found");
 MSG(isNotLessThan, "Expected something not less than %s, but %s was found");
 MSG(isNotNull, "Pointer should not be NULL");

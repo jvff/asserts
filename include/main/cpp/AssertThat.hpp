@@ -47,6 +47,8 @@ public:
             subject)
     ASSERTION_WITH_PARAM(isDifferentThan, subject != parameter, parameter,
             subject)
+    ASSERTION_WITH_PARAM(isNotDifferentThan, !(subject != parameter), parameter,
+            subject)
 
     ASSERTION_WITH_PARAM(isLessThan, subject < parameter, parameter, subject)
     ASSERTION_WITH_PARAM(isNotLessThan, !(subject < parameter), parameter,
