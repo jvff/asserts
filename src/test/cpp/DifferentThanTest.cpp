@@ -9,6 +9,19 @@ VALUE_ASSERTION_TEST(DifferentThanTest, isDifferentThan) {
             std::get<1>(parameter), std::get<0>(parameter));
 }
 
+VALUE_ASSERTION_TEST(DifferentThanTest, isNotDifferentThan) {
+    const auto& firstParameter = std::get<0>(parameter);
+    const auto& secondParameter = std::get<1>(parameter);
+
+    assertThat(firstParameter).isNotDifferentThan(secondParameter);
+
+    checkResult("Expected something that's not different than %s, but %s was "
+            "found", secondParameter, firstParameter);
+}
+
+VALUE_ASSERTION_TESTS_ARE_OPPOSITE(DifferentThanTest, isDifferentThan,
+        isNotDifferentThan);
+
 VALUES_SHOULD_SUCCEED(DifferentThanTest, isDifferentThan,
         std::make_tuple(true, false),
         std::make_tuple(false, true),
