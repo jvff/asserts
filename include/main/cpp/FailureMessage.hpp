@@ -50,6 +50,7 @@ MSG(isTheSame, "%s should be the same type as %s");
 
 MSG(isAtSameAddressAs, "Expected %s to be at the same address as %s");
 MSG(isConstMethod, "Expected %s to be a const qualified method");
+MSG(isAlmostEqualTo, "Expected something almost equal to %s, but %s was found");
 MSG(isDifferentThan, "Expected something different than %s, but %s was found");
 MSG(isEqualTo, "Expected something equal to %s, but %s was found");
 MSG(isLessThan, "Expected something less than %s, but %s was found");
