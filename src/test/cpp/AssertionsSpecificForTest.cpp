@@ -1,7 +1,8 @@
 #include "AssertionsSpecificForTest.hpp"
 
 TEST_PARAMETERS(AssertionsSpecificForTest,
-        DummyType(), &DummyClass::method, &DummyClass::constMethod);
+        DummyType(), &DummyClass::method, &DummyClass::constMethod,
+        150, 30.f, -59.0, (long double)0.0);
 
 TEST_CP(AssertionsSpecificForTest, classTemplateExists) {
     EXPECT_TRUE((std::is_class<AssertionsSpecificFor<ParamType> >::value));
