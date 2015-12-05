@@ -14,6 +14,7 @@ public:
     TYPE_ASSERTION(hasVirtualDestructor, std::has_virtual_destructor<T>::value)
     TYPE_ASSERTION(isAbstractClassOrStruct, std::is_abstract<T>::value)
     TYPE_ASSERTION(isClassOrStruct, std::is_class<T>::value)
+    TYPE_ASSERTION(isConst, std::is_const<T>::value)
     TYPE_ASSERTION(isCopyConstructible, std::is_copy_constructible<T>::value)
     TYPE_ASSERTION(isNotCopyConstructible,
             !std::is_copy_constructible<T>::value)
