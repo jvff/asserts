@@ -42,6 +42,7 @@ MSG(hasVirtualDestructor, "%s should have virtual destructor");
 MSG(isAbstractClassOrStruct, "%s should be an abstract class or struct");
 MSG(isClassOrStruct, "%s should be a class or a struct");
 MSG(isConst, "%s should be read-only (const)");
+MSG(isConstReference, "%s should be a reference to a read-only (const) type");
 MSG(isConstructible, "%s should be constructible");
 MSG(isCopyConstructible, "%s should be copy constructible");
 MSG(isNotConstructible, "%s should not be constructible");
