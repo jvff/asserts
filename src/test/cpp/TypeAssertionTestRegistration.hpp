@@ -2,6 +2,7 @@
 #define TYPE_ASSERTION_TEST_REGISTRATION_HPP
 
 #include <string>
+#include <type_traits>
 
 #include "gtest/gtest.h"
 
@@ -29,7 +30,7 @@ public:
         typedef FixtureClassTemplate<T, shouldSucceed> FixtureClass;
         typedef TestClassTemplate<T> TestClass;
 
-        std::string currentTestCaseName = testCaseName + "." + GetTypeName<T>();
+        std::string currentTestCaseName = testCaseName + "." + getTypeName();
 
         MakeAndRegisterTestInfo(currentTestCaseName.c_str(), testName.c_str(),
                 NULL, NULL, GetTypeId<FixtureClass>(), TestClass::SetUpTestCase,
@@ -38,6 +39,23 @@ public:
         return TypeAssertionTestRegistration<FixtureClassTemplate,
                 TestClassTemplate, shouldSucceed, Tail...>
                     ::Register(testCaseName, testName);
+    }
+
+    static std::string getTypeName() {
+        std::string typeName = GetTypeName<T>();
+
+        if (std::is_const<T>::value)
+            typeName = "const " + typeName;
+        if (std::is_reference<T>::value) {
+            using referencedType = typename std::remove_reference<T>::type;
+
+            typeName += "&";
+
+            if (std::is_const<referencedType>::value)
+                typeName = "const " + typeName;
+        }
+
+        return typeName;
     }
 };
 
