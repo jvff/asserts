@@ -45,6 +45,8 @@ MSG(isConst, "%s should be read-only (const)");
 MSG(isConstReference, "%s should be a reference to a read-only (const) type");
 MSG(isConstructible, "%s should be constructible");
 MSG(isCopyConstructible, "%s should be copy constructible");
+MSG(isNonConstReference, "%s should be a reference to a read-write (non-const) "
+        "type");
 MSG(isNotConstructible, "%s should not be constructible");
 MSG(isNotCopyConstructible, "%s should not be copy constructible");
 MSG(isSubClass, "%s should be a sub-class of %s");
