@@ -13,14 +13,13 @@ VALUE_ASSERTION_TEST(NullTest, isNull) {
     checkResult("Pointer should be NULL");
 }
 
-VALUES_SHOULD_SUCCEED(NullTest, isNull, nullPointer);
-VALUES_SHOULD_FAIL(NullTest, isNull, dummyPointer);
-
 VALUE_ASSERTION_TEST(NullTest, isNotNull) {
     assertThat(parameter).isNotNull();
 
     checkResult("Pointer should not be NULL");
 }
 
-VALUES_SHOULD_SUCCEED(NullTest, isNotNull, dummyPointer);
-VALUES_SHOULD_FAIL(NullTest, isNotNull, nullPointer);
+VALUE_ASSERTION_TESTS_ARE_OPPOSITE(NullTest, isNull, isNotNull);
+
+VALUES_SHOULD_SUCCEED(NullTest, isNull, nullPointer);
+VALUES_SHOULD_FAIL(NullTest, isNull, dummyPointer);
