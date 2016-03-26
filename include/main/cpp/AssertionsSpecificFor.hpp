@@ -19,8 +19,10 @@ private:
     using SubjectType = ReturnType (ClassType::*)(ParameterTypes...);
     using Signature = ReturnType(ParameterTypes...);
 
+    using SuperClass = CommonAssertions<SubjectType>;
+
 protected:
-    using CommonAssertions<SubjectType>::subject;
+    using SuperClass::subject;
 
 public:
     AssertionsSpecificFor(const SubjectType& testSubject)
@@ -31,6 +33,8 @@ public:
             (std::is_same<Signature, typename TypeParam::Signature>::value),
             subject, " with signature ",
             TypeOf<typename TypeParam::Signature>())
+
+    using SuperClass::isMethod;
 };
 
 template <typename ClassType, typename ReturnType, typename... ParameterTypes>
@@ -41,8 +45,10 @@ private:
     using SubjectType = ReturnType (ClassType::*)(ParameterTypes...) const;
     using Signature = ReturnType(ParameterTypes...);
 
+    using SuperClass = CommonAssertions<SubjectType>;
+
 protected:
-    using CommonAssertions<SubjectType>::subject;
+    using SuperClass::subject;
 
 public:
     AssertionsSpecificFor(const SubjectType& testSubject)
@@ -55,6 +61,8 @@ public:
             (std::is_same<Signature, typename TypeParam::Signature>::value),
             subject, " with signature ",
             TypeOf<typename TypeParam::Signature>())
+
+    using SuperClass::isMethod;
 };
 
 template <typename T>
